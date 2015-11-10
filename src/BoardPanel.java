@@ -27,9 +27,9 @@ public class BoardPanel extends JPanel{
 		marge_x = (Game.playfieldx - b.getGrid_x()*50)/2;
 		marge_y = (Game.playfieldy - b.getGrid_y()*50)/2;
 		try {
-			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint.png"));
-			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis.png"));
-			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis_empty.png"));
+			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint2.png"));
+			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis1.png"));
+			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
