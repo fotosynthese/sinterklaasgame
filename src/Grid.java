@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Grid {
 
-	ArrayList<Integer> grid = new ArrayList<Integer>();
+	ArrayList<Tile> grid = new ArrayList<Tile>();
 	private int grid_x;
 	private int grid_y;
 	ArrayList[][] table;
@@ -13,7 +13,8 @@ public class Grid {
 		table = new ArrayList[grid_x][grid_y];
 		for(int i = 0; i < grid_x; i++){
 			for(int j = 0; j < grid_y; j++){
-				grid.add(0);
+				Tile tile = new Tile();
+				grid.add(tile);
 			}
 		}
 	}
@@ -39,6 +40,4 @@ public class Grid {
 		int size_table = table.length;
 		return Integer.toString(size) + " " + size_table;
 	}
-	
-	
 }
