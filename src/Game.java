@@ -29,7 +29,7 @@ public class Game implements MouseListener, MouseMotionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(boardPanel);
 		boardPanel.addMouseListener(this);
-		//boardPanel.addMouseMotionListener(this);
+		boardPanel.addMouseMotionListener(this);
 		frame.setSize(playfieldx,playfieldy);
 		frame.setVisible(true);
 		// TODO Auto-generated method stub
