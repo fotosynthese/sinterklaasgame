@@ -2,14 +2,16 @@
 public class Tile {
 	private int rcolor, gcolor, bcolor;
 	boolean heeftHuis = false;
+	boolean wilCadeau = false;
 	
 	public Tile(){
 		rcolor = 50;
 		gcolor = (int) (Math.random()*20 + 180);
 		bcolor = (int) (Math.random()*20 + 40);
-		int a = (int) (Math.random()*10);
+		int a = (int) (Math.random()*3);
 		if (a < 1){
 			heeftHuis = true;
+			wilCadeau = true;
 		}
 	}
 	

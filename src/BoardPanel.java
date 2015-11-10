@@ -17,6 +17,7 @@ public class BoardPanel extends JPanel{
 	int coordX, coordY;
 	BufferedImage sinterklaasImg;
 	BufferedImage huisImg;
+	BufferedImage huisEmptyImg;
 	
 	
 	public BoardPanel(Paard a, Grid b){
@@ -28,6 +29,7 @@ public class BoardPanel extends JPanel{
 		try {
 			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint.png"));
 			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis.png"));
+			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis_empty.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +75,11 @@ public class BoardPanel extends JPanel{
 				g.setColor(myRandomGreen);
 				g.fillRect(i*50 + marge_x,j*50 + marge_y, 50, 50);
 				if (n.heeftHuis){
-					g.drawImage(huisImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
+					if (n.wilCadeau){
+						g.drawImage(huisImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
+					} else {
+						g.drawImage(huisEmptyImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
+					}
 					//g.setColor(Color.BLUE);
 					//g.fillRect(i*50 + marge_x +10,j*50 + marge_y +10, 30, 30);
 				}

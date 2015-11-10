@@ -61,8 +61,12 @@ public class Game implements MouseListener, MouseMotionListener {
 		}
 		return false;
 	}
-	public void VakjeGeklikt(){
-		
+	public boolean isHuisDatCadeauWil(){
+		Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+		if (t.heeftHuis){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -75,6 +79,11 @@ public class Game implements MouseListener, MouseMotionListener {
 			paard.setX_positie(boardPanel.coordX);
 			paard.setY_positie(boardPanel.coordY);
 			boardPanel.setPaardPositie(paard);
+			if (isHuisDatCadeauWil()){
+				Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+				t.wilCadeau = false;
+				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
+			}
 		}
 		boardPanel.repaint();
 	}
