@@ -8,8 +8,8 @@ public class Grid {
 	ArrayList[][] table;
 	
 	public Grid(){
-		grid_x = 7;
-		grid_y = 9;
+		grid_x = 10;
+		grid_y = 10;
 		table = new ArrayList[grid_x][grid_y];
 		for(int i = 0; i < grid_x; i++){
 			for(int j = 0; j < grid_y; j++){
