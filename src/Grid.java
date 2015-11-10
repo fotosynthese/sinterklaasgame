@@ -5,12 +5,10 @@ public class Grid {
 	ArrayList<Tile> grid = new ArrayList<Tile>();
 	private int grid_x;
 	private int grid_y;
-	ArrayList[][] table;
 	
 	public Grid(){
 		grid_x = 10;
 		grid_y = 10;
-		table = new ArrayList[grid_x][grid_y];
 		for(int i = 0; i < grid_x; i++){
 			for(int j = 0; j < grid_y; j++){
 				Tile tile = new Tile();
@@ -37,7 +35,6 @@ public class Grid {
 	
 	public String toString(){
 		int size = grid.size();
-		int size_table = table.length;
-		return Integer.toString(size) + " " + size_table;
+		return Integer.toString(size);
 	}
 }

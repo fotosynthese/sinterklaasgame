@@ -5,7 +5,7 @@ public class Tile {
 	boolean wilCadeau = false;
 	
 	public Tile(){
-		rcolor = 50;
+		rcolor = (int) (Math.random()*20 + 40);
 		gcolor = (int) (Math.random()*20 + 180);
 		bcolor = (int) (Math.random()*20 + 40);
 		int a = (int) (Math.random()*3);

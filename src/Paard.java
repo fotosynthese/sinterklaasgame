@@ -2,6 +2,7 @@
 public class Paard {
 	private int x_positie;
 	private int y_positie;
+	private static int aantalKeerBewogen = 0;
 	
 	public Paard(){
 		x_positie = 2;
@@ -74,6 +75,17 @@ public class Paard {
 
 	public void setY_positie(int y_positie) {
 		this.y_positie = y_positie;
+	}
+
+	public static int getAantalKeerBewogen() {
+		return aantalKeerBewogen;
+	}
+
+	public static void setAantalKeerBewogen(int aantalKeerBewogen) {
+		Paard.aantalKeerBewogen = aantalKeerBewogen;
+	}
+	public static void add1BijAantalKeerBewogen(){
+		aantalKeerBewogen += 1;
 	}
 	
 }

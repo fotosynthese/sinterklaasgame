@@ -80,37 +80,30 @@ public class BoardPanel extends JPanel{
 					} else {
 						g.drawImage(huisEmptyImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
 					}
-					//g.setColor(Color.BLUE);
-					//g.fillRect(i*50 + marge_x +10,j*50 + marge_y +10, 30, 30);
 				}
-				//System.out.println(myRandomGreen);
 			}	
 			
 		}
-		
-		
-
-		
 		//Draw Rect at clicked Tile
 		g.setColor(Color.GRAY);
-		
 		//g.fillRoundRect(coordX*50 + marge_x,coordY*50 + marge_y, 50, 50, 30, 30);	
 		g.fillRect(coordX*50 + marge_x - 5,coordY*50 + marge_y - 5, 60, 10);
 		g.fillRect(coordX*50 + marge_x - 5,coordY*50 + marge_y - 5, 10, 60);
 		g.fillRect(coordX*50 + marge_x + 45,coordY*50 + marge_y - 5, 10, 60);
 		g.fillRect(coordX*50 + marge_x - 5,coordY*50 + marge_y +45, 60, 10);
-		
-		
 		//Draw Rect at mousePositionClick
 		g.setColor(Color.YELLOW);
 		g.fillRect(mouse_x,mouse_y, 10, 10);
-		
 		//Paard
 		//g.setColor(Color.BLUE);
 		//g.fillRect(a*50 + marge_x,b*50 + marge_y, 50, 50);
 		g.drawImage(sinterklaasImg, a*50 + marge_x,b*50 + marge_y - sinterklaasImg.getHeight()+50, null);
-		
-		
+		g.setColor(Color.black);
+		g.drawString("Totaal aantal kinderen blij gemaakt: " + Game.cadeautjesTotaalGebracht, Game.playfieldx/2 - 70, 20);
+		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, 40);
+		if (Game.heeftGewonnen()){
+			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
+		}
 	}
 	
 }

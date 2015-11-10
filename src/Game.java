@@ -13,6 +13,7 @@ public class Game implements MouseListener, MouseMotionListener {
 	static int mousexLastClick = 0;
 	static int mouseyLastClick = 0;
 	static BoardPanel boardPanel;
+	static int cadeautjesTotaalGebracht = 0;
 	JFrame frame;
 	Grid grid;
 	Paard paard;
@@ -32,14 +33,9 @@ public class Game implements MouseListener, MouseMotionListener {
 		boardPanel.addMouseMotionListener(this);
 		frame.setSize(playfieldx,playfieldy);
 		frame.setVisible(true);
-		// TODO Auto-generated method stub
-
 		System.out.println(grid.toString());
 		System.out.println("x positie Paard: " + paard.getX_positie());
 		System.out.println("y positie Paard: " + paard.getY_positie());
-//		paard.moveRechtsRechtsBoven();
-//		System.out.println("x positie Paard: " + paard.getX_positie());
-//		System.out.println("y positie Paard: " + paard.getY_positie());
 		while(true){
 			paard.move(scanner.nextInt());
 			System.out.println("x positie Paard: " + paard.getX_positie());
@@ -68,7 +64,12 @@ public class Game implements MouseListener, MouseMotionListener {
 		}
 		return false;
 	}
-
+	static boolean heeftGewonnen(){
+		if (cadeautjesTotaalGebracht > 5){
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		mousexLastClick = arg0.getX();
@@ -79,10 +80,12 @@ public class Game implements MouseListener, MouseMotionListener {
 			paard.setX_positie(boardPanel.coordX);
 			paard.setY_positie(boardPanel.coordY);
 			boardPanel.setPaardPositie(paard);
+			Paard.add1BijAantalKeerBewogen();
 			if (isHuisDatCadeauWil()){
 				Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
 				t.wilCadeau = false;
 				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
+				cadeautjesTotaalGebracht += 1;
 			}
 		}
 		boardPanel.repaint();
