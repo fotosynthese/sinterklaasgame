@@ -10,7 +10,7 @@ public class Tile {
 		gcolor = (int) (Math.random()*20 + 180);
 		bcolor = (int) (Math.random()*20 + 40);
 		int a = (int) (Math.random()*10);
-		if (a < 1){
+		if (a < 0){
 			heeftHuis = true;
 			wilCadeau = true;
 		}

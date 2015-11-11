@@ -23,8 +23,28 @@ public class Game implements MouseListener, MouseMotionListener {
 	}
 	
 	public void SinterKlaasGame(){
-		grid = new Grid(2,9);
-		paard = new Paard();
+		Level level1 = new Level();
+		level1.setGridx(8);
+		level1.setGridy(8);
+		level1.setSintx(3);
+		level1.setSinty(2);
+		level1.setHuisInArray(3,5);
+		level1.setHuisInArray(4,1);
+		level1.setHuisInArray(3,3);
+		level1.setHuisInArray(6,6);
+		grid = new Grid(level1.getGridx(),level1.getGridy());
+		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
+			int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
+			System.out.println(level1.getHuisCoordX().get(i) + " " +  level1.getHuisCoordY().get(i) + " "+ grid.getGrid_x());
+			System.out.println(tileInArray);
+			//System.out.println(level1.getHuisCoordX());
+			Tile t = grid.grid.get(tileInArray);
+			t.heeftHuis = true;
+			t.wilCadeau = true;
+			grid.grid.set(tileInArray, t);			
+		}
+
+		paard = new Paard(level1.getSintx(), level1.getSinty());
 		boardPanel = new BoardPanel(paard, grid);
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,9 +79,11 @@ public class Game implements MouseListener, MouseMotionListener {
 	}
 	private boolean viableValidePlaats() {
 		// TODO Auto-generated method stub
-		//checkt als paard zi
-		if (paard.getX_positie() > 0 && paard.getX_positie() < grid.getGrid_x()){
-			
+		//checkt als paard zijn nieuwe positie in het grid valt op de X
+		if (boardPanel.coordX >= 0 && boardPanel.coordX < grid.getGrid_x()){
+			if (boardPanel.coordY >= 0 && boardPanel.coordY < grid.getGrid_y()){
+				return true;
+			}
 		}
 		return false;
 	}

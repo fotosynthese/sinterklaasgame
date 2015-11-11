@@ -8,7 +8,10 @@ public class Paard {
 		x_positie = 0;
 		y_positie = 0;
 	}
-	
+	public Paard(int x, int y){
+		x_positie = x;
+		y_positie = y;
+	}	
 	public void move(int a){
 		switch(a){
 		case 1:
