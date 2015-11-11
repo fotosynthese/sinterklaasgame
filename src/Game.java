@@ -24,14 +24,20 @@ public class Game implements MouseListener, MouseMotionListener {
 	
 	public void SinterKlaasGame(){
 		Level level1 = new Level();
-		level1.setGridx(8);
-		level1.setGridy(8);
+		
+		//TODO als x en y anders zijn van elkaar dan gaat ie raar doen
+		level1.setGridx(7);
+		level1.setGridy(7);
 		level1.setSintx(3);
 		level1.setSinty(2);
-		level1.setHuisInArray(3,5);
+		level1.setHuisInArray(6,5);
 		level1.setHuisInArray(4,1);
 		level1.setHuisInArray(3,3);
 		level1.setHuisInArray(6,6);
+		level1.setWaterInArray(1, 1);
+		level1.setWaterInArray(1, 2);
+		level1.setWaterInArray(2, 1);
+		level1.setWaterInArray(2, 2);
 		level1.setWaterInArray(0, 4);
 		level1.setWaterInArray(1, 4);
 		level1.setWaterInArray(2, 4);
@@ -39,7 +45,6 @@ public class Game implements MouseListener, MouseMotionListener {
 		level1.setWaterInArray(4, 4);
 		level1.setWaterInArray(4, 5);
 		level1.setWaterInArray(4, 6);
-		level1.setWaterInArray(4, 7);
 		grid = new Grid(level1.getGridx(),level1.getGridy());
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
 			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
