@@ -3,18 +3,23 @@ public class Tile {
 	private int rcolor, gcolor, bcolor;
 	boolean heeftHuis = false;
 	boolean wilCadeau = false;
+	private int xCoord, yCoord;
 	
 	public Tile(){
 		rcolor = (int) (Math.random()*20 + 40);
 		gcolor = (int) (Math.random()*20 + 180);
 		bcolor = (int) (Math.random()*20 + 40);
-		int a = (int) (Math.random()*3);
+		int a = (int) (Math.random()*10);
 		if (a < 1){
 			heeftHuis = true;
 			wilCadeau = true;
 		}
 	}
-	
+	public Tile(int x, int y){
+		this();
+		xCoord = x;
+		yCoord = y;
+	}
 	
 	public int getRcolor() {
 		return rcolor;

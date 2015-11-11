@@ -11,10 +11,15 @@ public class Grid {
 		grid_y = 10;
 		for(int i = 0; i < grid_x; i++){
 			for(int j = 0; j < grid_y; j++){
-				Tile tile = new Tile();
+				Tile tile = new Tile(i, j);
 				grid.add(tile);
 			}
 		}
+	}
+	public Grid(int x, int y){
+		this();
+		grid_x = x;
+		grid_y = y;
 	}
 	
 	public int getGrid_x() {

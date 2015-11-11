@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class BoardPanel extends JPanel{
-	ArrayList<Tile> gridClone = new ArrayList<Tile>();
+	ArrayList<Tile> gridClone;
 	int a, b;
 	//coord van Grid
 	int gridx, gridy;
@@ -27,9 +27,9 @@ public class BoardPanel extends JPanel{
 		marge_x = (Game.playfieldx - b.getGrid_x()*50)/2;
 		marge_y = (Game.playfieldy - b.getGrid_y()*50)/2;
 		try {
-			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint.png"));
-			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis.png"));
-			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis_empty.png"));
+			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint2.png"));
+			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis1.png"));
+			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,11 +49,10 @@ public class BoardPanel extends JPanel{
 		this.mouse_x = x;
 		this.mouse_y = y;
 	}	
-	public void VakjeHighLighted(){
+	public void vakjeHighLighted(){
 		int mouseXinGrid, mouseYinGrid;
 		mouseXinGrid = mouse_x - marge_x;
 		mouseYinGrid = mouse_y - marge_y;
-		
 		coordX = mouseXinGrid / 50;
 		coordY = mouseYinGrid / 50;
 	}
@@ -61,7 +60,6 @@ public class BoardPanel extends JPanel{
 	public void paintComponent(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0, Game.playfieldx, Game.playfieldy);
-		
 		//Bord
 		for (int i = 0; i < gridx; i++){
 			for (int j = 0; j < gridy; j++){
@@ -78,7 +76,7 @@ public class BoardPanel extends JPanel{
 					if (n.wilCadeau){
 						g.drawImage(huisImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
 					} else {
-						g.drawImage(huisEmptyImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);
+						g.drawImage(huisEmptyImg, i*50 + marge_x,j*50 + marge_y - huisEmptyImg.getHeight()+50, null);
 					}
 				}
 			}	

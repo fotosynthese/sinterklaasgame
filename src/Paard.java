@@ -5,8 +5,8 @@ public class Paard {
 	private static int aantalKeerBewogen = 0;
 	
 	public Paard(){
-		x_positie = 2;
-		y_positie = 2;
+		x_positie = 0;
+		y_positie = 0;
 	}
 	
 	public void move(int a){

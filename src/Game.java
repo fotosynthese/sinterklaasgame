@@ -23,7 +23,7 @@ public class Game implements MouseListener, MouseMotionListener {
 	}
 	
 	public void SinterKlaasGame(){
-		grid = new Grid();
+		grid = new Grid(2,9);
 		paard = new Paard();
 		boardPanel = new BoardPanel(paard, grid);
 		frame = new JFrame();
@@ -45,7 +45,7 @@ public class Game implements MouseListener, MouseMotionListener {
 			boardPanel.repaint();
 		}		
 	}
-	public boolean viablePaardPlek(){
+	public boolean viablePaardJump(){
 		//als er geklikt wordt en het paard mag hiernaar toe.
 		int x_verschil, y_verschil;
 		x_verschil = Math.abs(boardPanel.coordX - paard.getX_positie());
@@ -54,6 +54,14 @@ public class Game implements MouseListener, MouseMotionListener {
 			if (x_verschil == 1 || y_verschil == 1){
 				return true;
 			}
+		}
+		return false;
+	}
+	private boolean viableValidePlaats() {
+		// TODO Auto-generated method stub
+		//checkt als paard zi
+		if (paard.getX_positie() > 0 && paard.getX_positie() < grid.getGrid_x()){
+			
 		}
 		return false;
 	}
@@ -75,8 +83,8 @@ public class Game implements MouseListener, MouseMotionListener {
 		mousexLastClick = arg0.getX();
 		mouseyLastClick = arg0.getY();
 		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-		boardPanel.VakjeHighLighted();
-		if (viablePaardPlek()){
+		boardPanel.vakjeHighLighted();
+		if (viablePaardJump() && (viableValidePlaats())){
 			paard.setX_positie(boardPanel.coordX);
 			paard.setY_positie(boardPanel.coordY);
 			boardPanel.setPaardPositie(paard);
@@ -90,6 +98,8 @@ public class Game implements MouseListener, MouseMotionListener {
 		}
 		boardPanel.repaint();
 	}
+
+
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 	}
@@ -112,7 +122,7 @@ public class Game implements MouseListener, MouseMotionListener {
 		mousexLastClick = arg0.getX();
 		mouseyLastClick = arg0.getY();
 		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-		boardPanel.VakjeHighLighted();
+		boardPanel.vakjeHighLighted();
 		boardPanel.repaint();
 	}
 
