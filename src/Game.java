@@ -32,15 +32,36 @@ public class Game implements MouseListener, MouseMotionListener {
 		level1.setHuisInArray(4,1);
 		level1.setHuisInArray(3,3);
 		level1.setHuisInArray(6,6);
+		level1.setWaterInArray(0, 4);
+		level1.setWaterInArray(1, 4);
+		level1.setWaterInArray(2, 4);
+		level1.setWaterInArray(3, 4);
+		level1.setWaterInArray(4, 4);
+		level1.setWaterInArray(4, 5);
+		level1.setWaterInArray(4, 6);
+		level1.setWaterInArray(4, 7);
 		grid = new Grid(level1.getGridx(),level1.getGridy());
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
-			int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
-			System.out.println(level1.getHuisCoordX().get(i) + " " +  level1.getHuisCoordY().get(i) + " "+ grid.getGrid_x());
+			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
+			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
+			System.out.println(level1.getHuisCoordY().get(i) + " " +  level1.getHuisCoordX().get(i) + " "+ grid.getGrid_y());
 			System.out.println(tileInArray);
+//			System.out.println(tileInArray2);
 			//System.out.println(level1.getHuisCoordX());
 			Tile t = grid.grid.get(tileInArray);
 			t.heeftHuis = true;
 			t.wilCadeau = true;
+			grid.grid.set(tileInArray, t);			
+		}
+		for(int i = 0; i < level1.getWaterX().size(); i++){
+			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
+			int tileInArray = grid.getGridTile(level1.getWaterX().get(i), level1.getWaterY().get(i));
+			System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
+			System.out.println(tileInArray);
+//			System.out.println(tileInArray2);
+			//System.out.println(level1.getHuisCoordX());
+			Tile t = grid.grid.get(tileInArray);
+			t.isWater = true;
 			grid.grid.set(tileInArray, t);			
 		}
 
@@ -82,6 +103,11 @@ public class Game implements MouseListener, MouseMotionListener {
 		//checkt als paard zijn nieuwe positie in het grid valt op de X
 		if (boardPanel.coordX >= 0 && boardPanel.coordX < grid.getGrid_x()){
 			if (boardPanel.coordY >= 0 && boardPanel.coordY < grid.getGrid_y()){
+				//if (grid.getGridTile(x, y))
+				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
+				if (t.isWater) {
+					return false;
+				}
 				return true;
 			}
 		}

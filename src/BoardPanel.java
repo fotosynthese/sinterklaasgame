@@ -70,8 +70,15 @@ public class BoardPanel extends JPanel{
 				int b = n.getGcolor();
 				int c = n.getBcolor();
 				Color myRandomGreen = new Color(a,b,c);
-				g.setColor(myRandomGreen);
-				g.fillRect(i*50 + marge_x,j*50 + marge_y, 50, 50);
+				if (n.isWater){
+					Color myRandomBlue = new Color(a,b,c+190);
+					g.setColor(myRandomBlue);
+					g.fillRect(i*50 + marge_x,j*50 + marge_y, 50, 50);	
+				} else {
+					g.setColor(myRandomGreen);
+					g.fillRect(i*50 + marge_x,j*50 + marge_y, 50, 50);		
+				}
+				
 				if (n.heeftHuis){
 					if (n.wilCadeau){
 						g.drawImage(huisImg, i*50 + marge_x,j*50 + marge_y - huisImg.getHeight()+50, null);

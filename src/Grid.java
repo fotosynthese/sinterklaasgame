@@ -33,6 +33,10 @@ public class Grid {
 	public int getGrid_y() {
 		return grid_y;
 	}
+	public int getGridTile(int x, int y){
+		int uitkomst = y + x*getGrid_y();
+		return uitkomst;
+	}
 
 	public void setGrid_y(int grid_y) {
 		this.grid_y = grid_y;
