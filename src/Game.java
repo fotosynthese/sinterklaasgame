@@ -17,6 +17,8 @@ public class Game implements MouseListener, MouseMotionListener {
 	JFrame frame;
 	Grid grid;
 	Paard paard;
+	
+	
 	public static void main(String[] args){
 		Game g = new Game();
 		g.SinterKlaasGame();
@@ -24,12 +26,13 @@ public class Game implements MouseListener, MouseMotionListener {
 	
 	public void SinterKlaasGame(){
 		Level level1 = new Level();
-		
 		//TODO als x en y anders zijn van elkaar dan gaat ie raar doen
-		level1.setGridx(7);
+		level1.setGridx(9);
 		level1.setGridy(7);
 		level1.setSintx(3);
 		level1.setSinty(2);
+		level1.setHuisInArray(0,2);
+		level1.setHuisInArray(1,3);
 		level1.setHuisInArray(6,5);
 		level1.setHuisInArray(4,1);
 		level1.setHuisInArray(3,3);
@@ -45,7 +48,7 @@ public class Game implements MouseListener, MouseMotionListener {
 		level1.setWaterInArray(4, 4);
 		level1.setWaterInArray(4, 5);
 		level1.setWaterInArray(4, 6);
-		grid = new Grid(level1.getGridx(),level1.getGridy());
+		grid = new Grid(level1.getGridx(), level1.getGridy());
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
 			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
 			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
@@ -61,8 +64,8 @@ public class Game implements MouseListener, MouseMotionListener {
 		for(int i = 0; i < level1.getWaterX().size(); i++){
 			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
 			int tileInArray = grid.getGridTile(level1.getWaterX().get(i), level1.getWaterY().get(i));
-			System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
-			System.out.println(tileInArray);
+			//System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
+			//System.out.println(tileInArray);
 //			System.out.println(tileInArray2);
 			//System.out.println(level1.getHuisCoordX());
 			Tile t = grid.grid.get(tileInArray);
@@ -91,8 +94,8 @@ public class Game implements MouseListener, MouseMotionListener {
 			boardPanel.repaint();
 		}		
 	}
+	//checkt als het paard een valide jump doet
 	public boolean viablePaardJump(){
-		//als er geklikt wordt en het paard mag hiernaar toe.
 		int x_verschil, y_verschil;
 		x_verschil = Math.abs(boardPanel.coordX - paard.getX_positie());
 		y_verschil = Math.abs(boardPanel.coordY - paard.getY_positie());
@@ -103,12 +106,14 @@ public class Game implements MouseListener, MouseMotionListener {
 		}
 		return false;
 	}
-	private boolean viableValidePlaats() {
-		// TODO Auto-generated method stub
+	
+	//checkt als het paard zijn nieuwe positie in het grid valt en als het geen water is.
+	public boolean viableValidePlaats() {
 		//checkt als paard zijn nieuwe positie in het grid valt op de X
 		if (boardPanel.coordX >= 0 && boardPanel.coordX < grid.getGrid_x()){
+			//checkt als paard zijn nieuwe positie in het grid valt op de Y
 			if (boardPanel.coordY >= 0 && boardPanel.coordY < grid.getGrid_y()){
-				//if (grid.getGridTile(x, y))
+				//checkt als paard zijn nieuwe positie het water raakt.
 				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
 				if (t.isWater) {
 					return false;
@@ -118,13 +123,18 @@ public class Game implements MouseListener, MouseMotionListener {
 		}
 		return false;
 	}
+	
+	//checkt als het Huis waarop je komt een cadeau wil.
 	public boolean isHuisDatCadeauWil(){
-		Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
-		if (t.heeftHuis){
+		//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+		Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
+		if (t.wilCadeau){
 			return true;
 		}
 		return false;
 	}
+	
+	//checkt als je gewonnen hebt.
 	static boolean heeftGewonnen(){
 		if (cadeautjesTotaalGebracht > 5){
 			return true;
@@ -143,9 +153,11 @@ public class Game implements MouseListener, MouseMotionListener {
 			boardPanel.setPaardPositie(paard);
 			Paard.add1BijAantalKeerBewogen();
 			if (isHuisDatCadeauWil()){
-				Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+				//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
 				t.wilCadeau = false;
-				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
+//				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
+				grid.grid.set(grid.getGridTile(boardPanel.coordX, boardPanel.coordY), t);
 				cadeautjesTotaalGebracht += 1;
 			}
 		}

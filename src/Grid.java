@@ -17,9 +17,15 @@ public class Grid {
 		}
 	}
 	public Grid(int x, int y){
-		this();
+		//this();
 		grid_x = x;
 		grid_y = y;
+		for(int i = 0; i < grid_x; i++){
+			for(int j = 0; j < grid_y; j++){
+				Tile tile = new Tile(i, j);
+				grid.add(tile);
+			}
+		}
 	}
 	
 	public int getGrid_x() {
@@ -35,6 +41,9 @@ public class Grid {
 	}
 	public int getGridTile(int x, int y){
 		int uitkomst = y + x*getGrid_y();
+		uitkomst = x*grid_y + y;
+		
+		
 		return uitkomst;
 	}
 

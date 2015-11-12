@@ -63,7 +63,10 @@ public class BoardPanel extends JPanel{
 		//Bord
 		for (int i = 0; i < gridx; i++){
 			for (int j = 0; j < gridy; j++){
-				Tile n = (gridClone.get(i*gridx + j));
+				Tile n = (gridClone.get(i*gridy + j));
+				
+				//Tile n = gridClone.getGridTile(i, j);
+				//y + x*getGrid_y()
 				//int a = (int) (Math.random()*20 + 40);
 				//a = gridClone.get(i);
 				int a = n.getRcolor();
@@ -78,6 +81,8 @@ public class BoardPanel extends JPanel{
 					g.setColor(myRandomGreen);
 					g.fillRect(i*50 + marge_x,j*50 + marge_y, 50, 50);		
 				}
+				g.setColor(Color.GREEN);
+				g.drawString("  x:"+ n.getxCoord() + "  y:" + n.getyCoord(), i*50 + marge_x,j*50 + marge_y + 25);
 				
 				if (n.heeftHuis){
 					if (n.wilCadeau){

@@ -44,5 +44,17 @@ public class Tile {
 	public void setBcolor(int bcolor) {
 		this.bcolor = bcolor;
 	}
+	public int getxCoord() {
+		return xCoord;
+	}
+	public void setxCoord(int xCoord) {
+		this.xCoord = xCoord;
+	}
+	public int getyCoord() {
+		return yCoord;
+	}
+	public void setyCoord(int yCoord) {
+		this.yCoord = yCoord;
+	}
 
 }
