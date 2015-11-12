@@ -5,6 +5,7 @@ public class Grid {
 	ArrayList<Tile> grid = new ArrayList<Tile>();
 	private int grid_x;
 	private int grid_y;
+	private static int gridSizePixels = 60;
 	
 	public Grid(){
 		grid_x = 10;
@@ -51,6 +52,12 @@ public class Grid {
 		this.grid_y = grid_y;
 	}
 	
+	public static int getGridsizepixels() {
+		return gridSizePixels;
+	}
+	public static void setGridsizepixels(int gridsizepixels) {
+		Grid.gridSizePixels = gridsizepixels;
+	}
 	public String toString(){
 		int size = grid.size();
 		return Integer.toString(size);

@@ -1,32 +1,78 @@
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Game implements MouseListener, MouseMotionListener {
+public class Game implements MouseListener, MouseMotionListener, ActionListener {
 	static Scanner scanner = new Scanner(System.in);
 	static int playfieldx = 800;
 	static int playfieldy = 600;
 	static int mousexLastClick = 0;
 	static int mouseyLastClick = 0;
 	static BoardPanel boardPanel;
+	static MenuPanel menuPanel;
+	static GamePanel game1panel; //dit is een panel, naam moet nog veranderen
 	static int cadeautjesTotaalGebracht = 0;
+	private JPanel containerPanel = new JPanel();
+	private CardLayout cardLayout = new CardLayout();
+
 	JFrame frame;
+	JButton start;
+	JButton start2;
 	Grid grid;
 	Paard paard;
 	
-	
-	public static void main(String[] args){
+	public static void main(String[] args){	
 		Game g = new Game();
-		g.SinterKlaasGame();
+		g.Menu();
+	}
+	
+	public void Menu(){
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(playfieldx,playfieldy);
+		menuPanel = new MenuPanel();	
+		frame.add(containerPanel);
+		containerPanel.setLayout(cardLayout);
+		//Create the main menu
+		//InitiateMainMenu();
+		//Add the main menu and show it
+		containerPanel.add(menuPanel, "1");	
+		containerPanel.addMouseListener(this);
+		containerPanel.addMouseMotionListener(this);
+		//SinterKlaasGame();
+		cardLayout.show(containerPanel, "1");
+
+		start = new JButton("1");
+		start2 = new JButton("2");
+		start.setActionCommand("1");
+		start2.setActionCommand("2");
+		start.setPreferredSize(new Dimension(100, 40));
+		start.addActionListener(this);
+		start2.setPreferredSize(new Dimension(100, 40));
+		start2.addActionListener(this);
+		menuPanel.add(start, BorderLayout.CENTER);
+		menuPanel.add(start2, BorderLayout.CENTER);
+		frame.setVisible(true);
+		while(true){
+			if (scanner.nextInt() == 1){
+				SinterKlaasGame();
+			}
+		}	
 	}
 	
 	public void SinterKlaasGame(){
 		Level level1 = new Level();
-		//TODO als x en y anders zijn van elkaar dan gaat ie raar doen
 		level1.setGridx(9);
 		level1.setGridy(7);
 		level1.setSintx(3);
@@ -72,27 +118,23 @@ public class Game implements MouseListener, MouseMotionListener {
 			t.isWater = true;
 			grid.grid.set(tileInArray, t);			
 		}
-
 		paard = new Paard(level1.getSintx(), level1.getSinty());
 		boardPanel = new BoardPanel(paard, grid);
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(boardPanel);
+		frame.setVisible(true);	
 		boardPanel.addMouseListener(this);
 		boardPanel.addMouseMotionListener(this);
-		frame.setSize(playfieldx,playfieldy);
-		frame.setVisible(true);
 		System.out.println(grid.toString());
 		System.out.println("x positie Paard: " + paard.getX_positie());
 		System.out.println("y positie Paard: " + paard.getY_positie());
-		while(true){
-			paard.move(scanner.nextInt());
-			System.out.println("x positie Paard: " + paard.getX_positie());
-			System.out.println("y positie Paard: " + paard.getY_positie());
-			System.out.println("x en y van mouseclick zijn: "+ mousexLastClick + mouseyLastClick );
-			boardPanel.setPaardPositie(paard);
-			boardPanel.repaint();
-		}		
+//		while(true){
+//			paard.move(scanner.nextInt());
+//			System.out.println("x positie Paard: " + paard.getX_positie());
+//			System.out.println("y positie Paard: " + paard.getY_positie());
+//			System.out.println("x en y van mouseclick zijn: "+ mousexLastClick + mouseyLastClick );
+//			boardPanel.setPaardPositie(paard);
+//			boardPanel.repaint();
+//		}		
 	}
 	//checkt als het paard een valide jump doet
 	public boolean viablePaardJump(){
@@ -143,25 +185,25 @@ public class Game implements MouseListener, MouseMotionListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		mousexLastClick = arg0.getX();
-		mouseyLastClick = arg0.getY();
-		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-		boardPanel.vakjeHighLighted();
-		if (viablePaardJump() && (viableValidePlaats())){
-			paard.setX_positie(boardPanel.coordX);
-			paard.setY_positie(boardPanel.coordY);
-			boardPanel.setPaardPositie(paard);
-			Paard.add1BijAantalKeerBewogen();
-			if (isHuisDatCadeauWil()){
-				//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
-				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
-				t.wilCadeau = false;
-//				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
-				grid.grid.set(grid.getGridTile(boardPanel.coordX, boardPanel.coordY), t);
-				cadeautjesTotaalGebracht += 1;
-			}
-		}
-		boardPanel.repaint();
+//		mousexLastClick = arg0.getX();
+//		mouseyLastClick = arg0.getY();
+//		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
+//		boardPanel.vakjeHighLighted();
+//		if (viablePaardJump() && (viableValidePlaats())){
+//			paard.setX_positie(boardPanel.coordX);
+//			paard.setY_positie(boardPanel.coordY);
+//			boardPanel.setPaardPositie(paard);
+//			Paard.add1BijAantalKeerBewogen();
+//			if (isHuisDatCadeauWil()){
+//				//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
+//				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
+//				t.wilCadeau = false;
+////				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
+//				grid.grid.set(grid.getGridTile(boardPanel.coordX, boardPanel.coordY), t);
+//				cadeautjesTotaalGebracht += 1;
+//			}
+//		}
+//		boardPanel.repaint();
 	}
 
 
@@ -186,9 +228,25 @@ public class Game implements MouseListener, MouseMotionListener {
 	public void mouseMoved(MouseEvent arg0) {
 		mousexLastClick = arg0.getX();
 		mouseyLastClick = arg0.getY();
-		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-		boardPanel.vakjeHighLighted();
-		boardPanel.repaint();
+		//boardPanel.setMouse(mousexLastClick, mouseyLastClick);
+		//boardPanel.vakjeHighLighted();
+		//boardPanel.repaint();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//TODO JANJAAP
+		//SinterKlaasGame();
+		 if ("1".equals(e.getActionCommand())) {
+			game1panel = new GamePanel(1);
+		 } else {
+			 game1panel = new GamePanel(2);
+		 }
+			containerPanel.add(game1panel, "2");
+			cardLayout.show(containerPanel, "2");
+		//boardPanel.requestFocus();
+		//frame.remove(menuPanel);
+		//frame.remove(start);
 	}
 
 }
