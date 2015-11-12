@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	static int mousexLastClick = 0;
 	static int mouseyLastClick = 0;
 	static BoardPanel boardPanel;
+	static boolean valideJump = false;
 	static MenuPanel menuPanel;
 	static int cadeautjesTotaalGebracht = 0;
 	private JPanel containerPanel = new JPanel();
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	JFrame frame;
 	JButton start;
 	Grid grid;
-	Paard paard;	
+	Paard paard;
 	
 	public GamePanel(int level){
 		Level level1 = new Level();
@@ -68,6 +69,21 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			level1.setWaterInArray(1, 1);
 			level1.setWaterInArray(1, 2);
 			level1.setWaterInArray(1, 3);
+			break;
+		case 3: 
+			level1.setGridx(9);
+			level1.setGridy(4);
+			level1.setSintx(4);
+			level1.setSinty(1);
+			level1.setHuisInArray(0,2);
+			level1.setHuisInArray(3,3);
+			level1.setHuisInArray(8,3);
+			level1.setWaterInArray(1, 1);
+			level1.setWaterInArray(3, 2);
+			level1.setWaterInArray(5, 2);
+			level1.setWaterInArray(6, 0);
+			level1.setWaterInArray(7, 3);
+			level1.setWaterInArray(5, 0);
 			break;
 		}
 		
@@ -175,7 +191,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				cadeautjesTotaalGebracht += 1;
 			}
 		}
-	repaint();
+		repaint();
 	}
 	
 	
@@ -200,6 +216,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		mousexLastClick = arg0.getX();
 		mouseyLastClick = arg0.getY();
 		setMouse(mousexLastClick, mouseyLastClick);
+		if (viablePaardJump() && (viableValidePlaats())){
+			valideJump = true;
+		} else {
+			valideJump = false;
+		}
 		vakjeHighLighted();
 		repaint();
 	}
@@ -303,10 +324,19 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		//Draw Rect at clicked Tile
 		g.setColor(Color.GRAY);
 		//g.fillRoundRect(coordX*50 + marge_x,coordY*50 + marge_y, 50, 50, 30, 30);	
-		g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
-		g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-		g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-		g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+		if (valideJump){
+			g.setColor(Color.GREEN);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+		} else {
+			g.setColor(Color.ORANGE);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+		}
 		//Draw Rect at mousePositionClick
 		g.setColor(Color.YELLOW);
 		g.fillRect(mouse_x-5,mouse_y-5, 10, 10);
@@ -321,5 +351,5 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
 		}
 	}	
-	}
+}
 

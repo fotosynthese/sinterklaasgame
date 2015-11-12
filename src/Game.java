@@ -29,6 +29,7 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 	JFrame frame;
 	JButton start;
 	JButton start2;
+	JButton level3;
 	Grid grid;
 	Paard paard;
 	
@@ -55,6 +56,10 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 
 		start = new JButton("1");
 		start2 = new JButton("2");
+		level3 = new JButton("3");
+		level3.setActionCommand("3");
+		level3.setPreferredSize(new Dimension(100, 40));
+		level3.addActionListener(this);
 		start.setActionCommand("1");
 		start2.setActionCommand("2");
 		start.setPreferredSize(new Dimension(100, 40));
@@ -63,6 +68,8 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 		start2.addActionListener(this);
 		menuPanel.add(start, BorderLayout.CENTER);
 		menuPanel.add(start2, BorderLayout.CENTER);
+		menuPanel.add(level3, BorderLayout.CENTER);
+
 		frame.setVisible(true);
 		while(true){
 			if (scanner.nextInt() == 1){
@@ -239,8 +246,10 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 		//SinterKlaasGame();
 		 if ("1".equals(e.getActionCommand())) {
 			game1panel = new GamePanel(1);
-		 } else {
+		 } else if ("2".equals(e.getActionCommand())) {
 			 game1panel = new GamePanel(2);
+		 } else if ("3".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(3);
 		 }
 			containerPanel.add(game1panel, "2");
 			cardLayout.show(containerPanel, "2");
