@@ -4,6 +4,8 @@ public class Tile {
 	boolean heeftHuis = false;
 	boolean wilCadeau = false;
 	boolean isWater = false;
+	boolean isWortel = false;
+	boolean isModder = false;
 	private int xCoord, yCoord;
 	
 	public Tile(){

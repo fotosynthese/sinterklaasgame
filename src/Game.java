@@ -18,20 +18,16 @@ public class Game implements ActionListener {
 	static Scanner scanner = new Scanner(System.in);
 	static int playfieldx = 800;
 	static int playfieldy = 600;
-//	static int mousexLastClick = 0;
-//	static int mouseyLastClick = 0;
 	static BoardPanel boardPanel;
 	static MenuPanel menuPanel;
 	static GamePanel game1panel; //dit is een panel, naam moet nog veranderen
 	static int cadeautjesTotaalGebracht = 0;
-	private JPanel containerPanel = new JPanel();
-	private CardLayout cardLayout = new CardLayout();
+	private static JPanel containerPanel = new JPanel();
+	private static CardLayout cardLayout = new CardLayout();
 
 	JFrame frame;
 	JButton level1;
 	JButton level2;
-//	JButton level1;
-//	JButton level2;
 	JButton level3;
 	JButton level4;
 	JButton level5;
@@ -99,6 +95,10 @@ public class Game implements ActionListener {
 		menuPanel.add(level16);
 		frame.setVisible(true);	
 	}
+	static void goToMenu(){
+		cardLayout.show(containerPanel, "1");
+	}
+	
 	public JButton maakButton(JButton a, String i){
 		a = new JButton(i);
 		a.setActionCommand(i);
@@ -146,9 +146,6 @@ public class Game implements ActionListener {
 		 }
 			containerPanel.add(game1panel, "2");
 			cardLayout.show(containerPanel, "2");
-		//boardPanel.requestFocus();
-		//frame.remove(menuPanel);
-		//frame.remove(start);
 	}
 
 }

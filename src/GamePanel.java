@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	Grid grid;
 	Paard paard;
 	ArrayList<Tile> gridClone;
-	int a, b;
+	int aXPaard, bYPaard;
 	//coord van Grid
 	int gridx, gridy;
 	int marge_x, marge_y;
@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	//JButton button = new JButton();
 
 	public GamePanel(int level){
+		cadeautjesTotaalGebracht = 0;
 		//button = new JButton("3");
 		//button.setActionCommand("3");
 		//button.setPreferredSize(new Dimension(100, 40));
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			level1.setWaterInArray(3, 4);
 			level1.setWaterInArray(4, 4);
 			level1.setWaterInArray(4, 5);
-			level1.setWaterInArray(4, 6);
+			level1.setModderInArray(4, 6);
 			break;
 		case 2: 
 			level1.setGridx(5);
@@ -172,6 +173,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			t.isWater = true;
 			grid.grid.set(tileInArray, t);			
 		}
+		for(int i = 0; i < level1.getModderCoordX().size(); i++){
+			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
+			int tileInArray = grid.getGridTile(level1.getModderCoordX().get(i), level1.getModderCoordY().get(i));
+			//System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
+			//System.out.println(tileInArray);
+			//		System.out.println(tileInArray2);
+			//System.out.println(level1.getHuisCoordX());
+			Tile t = grid.grid.get(tileInArray);
+			t.isModder = true;
+			grid.grid.set(tileInArray, t);			
+		}
 		paard = new Paard(level1.getSintx(), level1.getSinty());
 		BoardPanel(paard, grid);
 		//boardPanel = new BoardPanel(paard, grid);
@@ -242,6 +254,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			paard.setX_positie(coordX);
 			paard.setY_positie(coordY);
 			setPaardPositie(paard);
+			if (tileIsModder()){
+				Paard.add1BijAantalKeerBewogen();
+			}
 			Paard.add1BijAantalKeerBewogen();
 			if (isHuisDatCadeauWil()){
 				Tile t = grid.grid.get(grid.getGridTile(coordX, coordY));
@@ -252,6 +267,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		}
 		repaint();
 	}
+	private boolean tileIsModder() {
+		Tile t = grid.grid.get(grid.getGridTile(coordX, coordY));
+		if (t.isModder){
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 	}
@@ -301,8 +324,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	public void setPaardPositie(Paard a){
-		this.a = a.getX_positie();
-		this.b = a.getY_positie();
+		this.aXPaard = a.getX_positie();
+		this.bYPaard = a.getY_positie();
 	}
 
 	public void setGrid(Grid a){
@@ -321,6 +344,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		coordY = mouseYinGrid / Grid.getGridsizepixels();
 	}
 
+	public void animatePaard(){
+		
+	}
 	public void paintComponent(Graphics g){
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0, Game.playfieldx, Game.playfieldy);
@@ -336,9 +362,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 					Color myRandomBlue = new Color(a,b,c+190);
 					g.setColor(myRandomBlue);
 					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());	
+				} else if (n.isModder){
+					Color myRandomModder = new Color(a+100,b-90,c-20);
+					g.setColor(myRandomModder);
+					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());		
 				} else {
 					g.setColor(myRandomGreen);
-					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());		
+					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());
 				}
 				g.setColor(Color.GREEN);
 				g.drawString("  x:"+ n.getxCoord() + "  y:" + n.getyCoord(), i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y + 25);
@@ -370,13 +400,15 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		g.setColor(Color.YELLOW);
 		g.fillRect(mouse_x-5,mouse_y-5, 10, 10);
 		//Paard
-		g.drawImage(sinterklaasImg, a*Grid.getGridsizepixels() + marge_x + ((Grid.getGridsizepixels() -sinterklaasImg.getWidth())/2), b*Grid.getGridsizepixels() + marge_y - sinterklaasImg.getHeight()+Grid.getGridsizepixels(), null);
+		//g.drawImage(sinterklaasImg, aXPaard*Grid.getGridsizepixels() + marge_x + ((Grid.getGridsizepixels() -sinterklaasImg.getWidth())/2), bYPaard*Grid.getGridsizepixels() + marge_y - sinterklaasImg.getHeight()+Grid.getGridsizepixels(), null);
+		g.drawImage(sinterklaasImg, aXPaard*Grid.getGridsizepixels() + marge_x + ((Grid.getGridsizepixels() -sinterklaasImg.getWidth())/2), bYPaard*Grid.getGridsizepixels() + marge_y - sinterklaasImg.getHeight()+Grid.getGridsizepixels(), null);
 		g.setColor(Color.black);
 		g.drawString("Totaal aantal kinderen blij gemaakt: " + cadeautjesTotaalGebracht, Game.playfieldx/2 - 70, 20);
 		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, 40);
 		if (heeftGewonnen()){
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
 			//cardLayout.show(containerPanel, "1");
+			Game.goToMenu();
 		}
 	}	
 }

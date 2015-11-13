@@ -111,9 +111,9 @@ public class BoardPanel extends JPanel{
 		g.setColor(Color.black);
 		g.drawString("Totaal aantal kinderen blij gemaakt: " + Game.cadeautjesTotaalGebracht, Game.playfieldx/2 - 70, 20);
 		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, 40);
-		if (Game.heeftGewonnen()){
+		//if (Game.heeftGewonnen()){
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
-		}
+		//}
 	}
 	
 }

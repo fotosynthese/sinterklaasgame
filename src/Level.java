@@ -6,6 +6,15 @@ public class Level {
 	ArrayList<Integer> huisCoordY = new ArrayList();
 	ArrayList<Integer> waterCoordX = new ArrayList();
 	ArrayList<Integer> waterCoordY = new ArrayList();
+	ArrayList<Integer> modderCoordX = new ArrayList();
+	ArrayList<Integer> modderCoordY = new ArrayList();
+	
+	public ArrayList<Integer> getModderCoordY() {
+		return modderCoordY;
+	}
+	public void setModderCoordY(ArrayList<Integer> modderCoordY) {
+		this.modderCoordY = modderCoordY;
+	}
 	private int sintx, sinty;
 	private int teBehalenPunten;
 	
@@ -17,6 +26,12 @@ public class Level {
 	}
 	public ArrayList<Integer> getWaterY() {
 		return waterCoordY;
+	}
+	public ArrayList<Integer> getModderCoordX() {
+		return modderCoordX;
+	}
+	public void setModderCoordX(ArrayList<Integer> modderCoordX) {
+		this.modderCoordX = modderCoordX;
 	}
 	public void setWaterY(ArrayList<Integer> waterY) {
 		this.waterCoordY = waterY;
@@ -54,7 +69,10 @@ public class Level {
 		waterCoordX.add(x);
 		waterCoordY.add(y);
 	}
-	
+	public void setModderInArray(int x, int y){
+		modderCoordX.add(x);
+		modderCoordY.add(y);
+	}	
 	public int getSintx() {
 		return sintx;
 	}
