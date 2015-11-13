@@ -45,150 +45,38 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	BufferedImage huisImg;
 	BufferedImage huisEmptyImg;
 	Level level1 = new Level();
-	//JButton button = new JButton();
+	ListOfLevels lijstvanlevels;
 
 	public GamePanel(int level){
 		cadeautjesTotaalGebracht = 0;
-		//button = new JButton("3");
-		//button.setActionCommand("3");
-		//button.setPreferredSize(new Dimension(100, 40));
-		//button.addActionListener(this);
-		//menuPanel.add(button, BorderLayout.CENTER);
-		//level1 = new Level();
-		switch(level){
-		case 1: 
-			level1.setGridx(9);
-			level1.setGridy(7);
-			level1.setSintx(3);
-			level1.setSinty(2);
-			level1.setHuisInArray(0,2);
-			level1.setHuisInArray(1,3);
-			level1.setHuisInArray(6,5);
-			level1.setHuisInArray(4,1);
-			level1.setHuisInArray(3,3);
-			level1.setHuisInArray(6,6);
-			level1.setTeBehalenPunten(6);
-			level1.setWaterInArray(1, 1);
-			level1.setWaterInArray(1, 2);
-			level1.setWaterInArray(2, 1);
-			level1.setWaterInArray(2, 2);
-			level1.setWaterInArray(0, 4);
-			level1.setWaterInArray(1, 4);
-			level1.setWaterInArray(2, 4);
-			level1.setWaterInArray(3, 4);
-			level1.setWaterInArray(4, 4);
-			level1.setWaterInArray(4, 5);
-			level1.setModderInArray(4, 6);
-			break;
-		case 2: 
-			level1.setGridx(5);
-			level1.setGridy(5);
-			level1.setSintx(0);
-			level1.setSinty(0);
-			level1.setHuisInArray(0,2);
-			level1.setHuisInArray(3,3);
-			level1.setTeBehalenPunten(2);
-			//System.out.println(level1.getTeBehalenPunten());
-			level1.setWaterInArray(1, 1);
-			level1.setWaterInArray(1, 2);
-			level1.setWaterInArray(1, 3);
-			break;
-		case 3: 
-			level1.setGridx(9);
-			level1.setGridy(4);
-			level1.setSintx(4);
-			level1.setSinty(1);
-			level1.setHuisInArray(0,2);
-			level1.setHuisInArray(3,3);
-			level1.setHuisInArray(8,3);
-			level1.setTeBehalenPunten(3);
-			level1.setWaterInArray(1, 1);
-			level1.setWaterInArray(3, 2);
-			level1.setWaterInArray(5, 2);
-			level1.setWaterInArray(6, 0);
-			level1.setWaterInArray(7, 3);
-			level1.setWaterInArray(5, 0);
-			break;
-		case 4: 
-			level1.setGridx(9);
-			level1.setGridy(7);
-			level1.setSintx(4);
-			level1.setSinty(1);
-			level1.setHuisInArray(6,2);
-			level1.setHuisInArray(3,3);
-			level1.setHuisInArray(8,3);
-			level1.setHuisInArray(7,2);
-			level1.setHuisInArray(4,3);
-			level1.setHuisInArray(7,3);
-			level1.setTeBehalenPunten(6);
-			break;
-		case 5: 
-			level1.setGridx(7);
-			level1.setGridy(7);
-			level1.setSintx(0);
-			level1.setSinty(1);
-			level1.setHuisInArray(3,3);
-			level1.setTeBehalenPunten(1);
-			level1.setWaterInArray(0, 4);
-			level1.setWaterInArray(2, 1);
-			level1.setWaterInArray(1, 2);
-			level1.setWaterInArray(2, 2);
-			level1.setWaterInArray(2, 3);
-			level1.setWaterInArray(2, 4);
-			level1.setWaterInArray(2, 5);
-			level1.setWaterInArray(3, 2);
-			level1.setWaterInArray(3, 4);
-			level1.setWaterInArray(1, 4);
-			level1.setWaterInArray(4, 2);
-			level1.setWaterInArray(4, 3);
-			level1.setWaterInArray(4, 4);
-			level1.setWaterInArray(4, 5);
-			level1.setWaterInArray(4, 6);
-			level1.setWaterInArray(5, 2);
-			level1.setWaterInArray(5, 3);
-			break;
-		}
+		lijstvanlevels = new ListOfLevels();
+		level1 = lijstvanlevels.levels.get(level-1);
 
 		grid = new Grid(level1.getGridx(), level1.getGridy());
+		
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
-			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
 			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
 			System.out.println(level1.getHuisCoordY().get(i) + " " +  level1.getHuisCoordX().get(i) + " "+ grid.getGrid_y());
 			System.out.println(tileInArray);
-			//		System.out.println(tileInArray2);
-			//System.out.println(level1.getHuisCoordX());
 			Tile t = grid.grid.get(tileInArray);
 			t.heeftHuis = true;
 			t.wilCadeau = true;
 			grid.grid.set(tileInArray, t);			
 		}
 		for(int i = 0; i < level1.getWaterX().size(); i++){
-			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
 			int tileInArray = grid.getGridTile(level1.getWaterX().get(i), level1.getWaterY().get(i));
-			//System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
-			//System.out.println(tileInArray);
-			//		System.out.println(tileInArray2);
-			//System.out.println(level1.getHuisCoordX());
 			Tile t = grid.grid.get(tileInArray);
 			t.isWater = true;
 			grid.grid.set(tileInArray, t);			
 		}
 		for(int i = 0; i < level1.getModderCoordX().size(); i++){
-			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
 			int tileInArray = grid.getGridTile(level1.getModderCoordX().get(i), level1.getModderCoordY().get(i));
-			//System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
-			//System.out.println(tileInArray);
-			//		System.out.println(tileInArray2);
-			//System.out.println(level1.getHuisCoordX());
 			Tile t = grid.grid.get(tileInArray);
 			t.isModder = true;
 			grid.grid.set(tileInArray, t);			
 		}
 		paard = new Paard(level1.getSintx(), level1.getSinty());
 		BoardPanel(paard, grid);
-		//boardPanel = new BoardPanel(paard, grid);
-		//frame.add(boardPanel);
-		//frame.setVisible(true);	
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		System.out.println(grid.toString());

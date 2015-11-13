@@ -20,7 +20,6 @@ public class MenuPanel extends JPanel{
 	BufferedImage huisEmptyImg;
 	
 	public MenuPanel(){
-		
 	}
 	public MenuPanel(Paard a, Grid b){
 		gridClone = b.grid;
@@ -42,7 +41,6 @@ public class MenuPanel extends JPanel{
 		this.a = a.getX_positie();
 		this.b = a.getY_positie();
 	}
-	
 	public void setGrid(Grid a){
 		this.gridx = a.getGrid_x();
 		this.gridy = a.getGrid_y();
@@ -58,13 +56,11 @@ public class MenuPanel extends JPanel{
 		coordX = mouseXinGrid / 50;
 		coordY = mouseYinGrid / 50;
 	}
-
 	public void paintComponent(Graphics g){
-		g.setColor(Color.WHITE);
+		g.setColor(Color.YELLOW);
 		g.fillRect(0,0, Game.playfieldx, Game.playfieldy);
 		
 		g.setColor(Color.BLACK);
 		g.drawString("THIS IST DER MENU", 50, 50);
 	}
-	
 }
