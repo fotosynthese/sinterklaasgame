@@ -7,6 +7,7 @@ public class Level {
 	ArrayList<Integer> waterCoordX = new ArrayList();
 	ArrayList<Integer> waterCoordY = new ArrayList();
 	private int sintx, sinty;
+	private int teBehalenPunten;
 	
 	public ArrayList<Integer> getWaterX() {
 		return waterCoordX;
@@ -65,6 +66,12 @@ public class Level {
 	}
 	public void setSinty(int sinty) {
 		this.sinty = sinty;
+	}
+	public int getTeBehalenPunten() {
+		return teBehalenPunten;
+	}
+	public void setTeBehalenPunten(int teBehalenPunten) {
+		this.teBehalenPunten = teBehalenPunten;
 	}
 
 }

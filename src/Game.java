@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,12 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game implements MouseListener, MouseMotionListener, ActionListener {
+public class Game implements ActionListener {
 	static Scanner scanner = new Scanner(System.in);
 	static int playfieldx = 800;
 	static int playfieldy = 600;
-	static int mousexLastClick = 0;
-	static int mouseyLastClick = 0;
+//	static int mousexLastClick = 0;
+//	static int mouseyLastClick = 0;
 	static BoardPanel boardPanel;
 	static MenuPanel menuPanel;
 	static GamePanel game1panel; //dit is een panel, naam moet nog veranderen
@@ -27,9 +28,24 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 	private CardLayout cardLayout = new CardLayout();
 
 	JFrame frame;
-	JButton start;
-	JButton start2;
+	JButton level1;
+	JButton level2;
+//	JButton level1;
+//	JButton level2;
 	JButton level3;
+	JButton level4;
+	JButton level5;
+	JButton level6;
+	JButton level7;
+	JButton level8;
+	JButton level9;
+	JButton level10;
+	JButton level11;
+	JButton level12;
+	JButton level13;
+	JButton level14;
+	JButton level15;
+	JButton level16;
 	Grid grid;
 	Paard paard;
 	
@@ -45,201 +61,52 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 		menuPanel = new MenuPanel();	
 		frame.add(containerPanel);
 		containerPanel.setLayout(cardLayout);
-		//Create the main menu
-		//InitiateMainMenu();
-		//Add the main menu and show it
 		containerPanel.add(menuPanel, "1");	
-		containerPanel.addMouseListener(this);
-		containerPanel.addMouseMotionListener(this);
-		//SinterKlaasGame();
 		cardLayout.show(containerPanel, "1");
-
-		start = new JButton("1");
-		start2 = new JButton("2");
-		level3 = new JButton("3");
-		level3.setActionCommand("3");
-		level3.setPreferredSize(new Dimension(100, 40));
-		level3.addActionListener(this);
-		start.setActionCommand("1");
-		start2.setActionCommand("2");
-		start.setPreferredSize(new Dimension(100, 40));
-		start.addActionListener(this);
-		start2.setPreferredSize(new Dimension(100, 40));
-		start2.addActionListener(this);
-		menuPanel.add(start, BorderLayout.CENTER);
-		menuPanel.add(start2, BorderLayout.CENTER);
-		menuPanel.add(level3, BorderLayout.CENTER);
-
-		frame.setVisible(true);
-		while(true){
-			if (scanner.nextInt() == 1){
-				SinterKlaasGame();
-			}
-		}	
-	}
-	
-	public void SinterKlaasGame(){
-		Level level1 = new Level();
-		level1.setGridx(9);
-		level1.setGridy(7);
-		level1.setSintx(3);
-		level1.setSinty(2);
-		level1.setHuisInArray(0,2);
-		level1.setHuisInArray(1,3);
-		level1.setHuisInArray(6,5);
-		level1.setHuisInArray(4,1);
-		level1.setHuisInArray(3,3);
-		level1.setHuisInArray(6,6);
-		level1.setWaterInArray(1, 1);
-		level1.setWaterInArray(1, 2);
-		level1.setWaterInArray(2, 1);
-		level1.setWaterInArray(2, 2);
-		level1.setWaterInArray(0, 4);
-		level1.setWaterInArray(1, 4);
-		level1.setWaterInArray(2, 4);
-		level1.setWaterInArray(3, 4);
-		level1.setWaterInArray(4, 4);
-		level1.setWaterInArray(4, 5);
-		level1.setWaterInArray(4, 6);
-		grid = new Grid(level1.getGridx(), level1.getGridy());
-		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
-			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
-			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
-			System.out.println(level1.getHuisCoordY().get(i) + " " +  level1.getHuisCoordX().get(i) + " "+ grid.getGrid_y());
-			System.out.println(tileInArray);
-//			System.out.println(tileInArray2);
-			//System.out.println(level1.getHuisCoordX());
-			Tile t = grid.grid.get(tileInArray);
-			t.heeftHuis = true;
-			t.wilCadeau = true;
-			grid.grid.set(tileInArray, t);			
-		}
-		for(int i = 0; i < level1.getWaterX().size(); i++){
-			//int tileInArray = level1.getHuisCoordY().get(i) + level1.getHuisCoordX().get(i)*grid.getGrid_y();
-			int tileInArray = grid.getGridTile(level1.getWaterX().get(i), level1.getWaterY().get(i));
-			//System.out.println("x is: "+ level1.getWaterX().get(i) + " y is: " +  level1.getWaterY().get(i) + "grid lengte y is: "+ grid.getGrid_y());
-			//System.out.println(tileInArray);
-//			System.out.println(tileInArray2);
-			//System.out.println(level1.getHuisCoordX());
-			Tile t = grid.grid.get(tileInArray);
-			t.isWater = true;
-			grid.grid.set(tileInArray, t);			
-		}
-		paard = new Paard(level1.getSintx(), level1.getSinty());
-		boardPanel = new BoardPanel(paard, grid);
-		frame.add(boardPanel);
+		
+		level1 = maakButton(level1, "1");
+		level2 = maakButton(level2, "2");
+		level3 = maakButton(level3, "3");
+		level4 = maakButton(level4, "4");
+		level5 = maakButton(level5, "5");
+		level6 = maakButton(level6, "6");
+		level7 = maakButton(level7, "7");
+		level8 = maakButton(level8, "8");
+		level9 = maakButton(level9, "9");
+		level10 = maakButton(level10, "10");
+		level11 = maakButton(level11, "11");
+		level12 = maakButton(level12, "12");
+		level13 = maakButton(level13, "13");
+		level14 = maakButton(level14, "14");
+		level15 = maakButton(level15, "15");
+		level16 = maakButton(level16, "16");
+		menuPanel.setLayout(new GridLayout(4, 4, 20, 20));
+		menuPanel.add(level1);
+		menuPanel.add(level2);
+		menuPanel.add(level3);
+		menuPanel.add(level4, BorderLayout.CENTER);
+		menuPanel.add(level5, BorderLayout.CENTER);
+		menuPanel.add(level6, BorderLayout.CENTER);
+		menuPanel.add(level7, BorderLayout.CENTER);
+		menuPanel.add(level8, BorderLayout.CENTER);
+		menuPanel.add(level9, BorderLayout.CENTER);
+		menuPanel.add(level10, BorderLayout.CENTER);
+		menuPanel.add(level11, BorderLayout.CENTER);
+		menuPanel.add(level12, BorderLayout.CENTER);
+		menuPanel.add(level13, BorderLayout.CENTER);
+		menuPanel.add(level14, BorderLayout.CENTER);
+		menuPanel.add(level15, BorderLayout.CENTER);
+		menuPanel.add(level16);
 		frame.setVisible(true);	
-		boardPanel.addMouseListener(this);
-		boardPanel.addMouseMotionListener(this);
-		System.out.println(grid.toString());
-		System.out.println("x positie Paard: " + paard.getX_positie());
-		System.out.println("y positie Paard: " + paard.getY_positie());
-//		while(true){
-//			paard.move(scanner.nextInt());
-//			System.out.println("x positie Paard: " + paard.getX_positie());
-//			System.out.println("y positie Paard: " + paard.getY_positie());
-//			System.out.println("x en y van mouseclick zijn: "+ mousexLastClick + mouseyLastClick );
-//			boardPanel.setPaardPositie(paard);
-//			boardPanel.repaint();
-//		}		
 	}
-	//checkt als het paard een valide jump doet
-	public boolean viablePaardJump(){
-		int x_verschil, y_verschil;
-		x_verschil = Math.abs(boardPanel.coordX - paard.getX_positie());
-		y_verschil = Math.abs(boardPanel.coordY - paard.getY_positie());
-		if (x_verschil == 2 || y_verschil == 2){
-			if (x_verschil == 1 || y_verschil == 1){
-				return true;
-			}
-		}
-		return false;
+	public JButton maakButton(JButton a, String i){
+		a = new JButton(i);
+		a.setActionCommand(i);
+		//a.setSize(100, 40);
+		a.setPreferredSize(new Dimension(100, 40));
+		a.addActionListener(this);	
+		return a;
 	}
-	
-	//checkt als het paard zijn nieuwe positie in het grid valt en als het geen water is.
-	public boolean viableValidePlaats() {
-		//checkt als paard zijn nieuwe positie in het grid valt op de X
-		if (boardPanel.coordX >= 0 && boardPanel.coordX < grid.getGrid_x()){
-			//checkt als paard zijn nieuwe positie in het grid valt op de Y
-			if (boardPanel.coordY >= 0 && boardPanel.coordY < grid.getGrid_y()){
-				//checkt als paard zijn nieuwe positie het water raakt.
-				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
-				if (t.isWater) {
-					return false;
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	//checkt als het Huis waarop je komt een cadeau wil.
-	public boolean isHuisDatCadeauWil(){
-		//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
-		Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
-		if (t.wilCadeau){
-			return true;
-		}
-		return false;
-	}
-	
-	//checkt als je gewonnen hebt.
-	static boolean heeftGewonnen(){
-		if (cadeautjesTotaalGebracht > 5){
-			return true;
-		}
-		return false;
-	}
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-//		mousexLastClick = arg0.getX();
-//		mouseyLastClick = arg0.getY();
-//		boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-//		boardPanel.vakjeHighLighted();
-//		if (viablePaardJump() && (viableValidePlaats())){
-//			paard.setX_positie(boardPanel.coordX);
-//			paard.setY_positie(boardPanel.coordY);
-//			boardPanel.setPaardPositie(paard);
-//			Paard.add1BijAantalKeerBewogen();
-//			if (isHuisDatCadeauWil()){
-//				//Tile t = grid.grid.get(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY);
-//				Tile t = grid.grid.get(grid.getGridTile(boardPanel.coordX, boardPanel.coordY));
-//				t.wilCadeau = false;
-////				grid.grid.set(boardPanel.coordX*grid.getGrid_x() + boardPanel.coordY, t);
-//				grid.grid.set(grid.getGridTile(boardPanel.coordX, boardPanel.coordY), t);
-//				cadeautjesTotaalGebracht += 1;
-//			}
-//		}
-//		boardPanel.repaint();
-	}
-
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-	}
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-	}
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		mousexLastClick = arg0.getX();
-		mouseyLastClick = arg0.getY();
-		//boardPanel.setMouse(mousexLastClick, mouseyLastClick);
-		//boardPanel.vakjeHighLighted();
-		//boardPanel.repaint();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//TODO JANJAAP
@@ -250,6 +117,32 @@ public class Game implements MouseListener, MouseMotionListener, ActionListener 
 			 game1panel = new GamePanel(2);
 		 } else if ("3".equals(e.getActionCommand())) {
 			 game1panel = new GamePanel(3);
+		 } else if ("4".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(4);
+		 } else if ("5".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(5);
+		 }else if ("6".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(6);
+		 }else if ("7".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(7);
+		 }else if ("8".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(8);
+		 }else if ("9".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(9);
+		 }else if ("10".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(10);
+		 }else if ("11".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(11);
+		 }else if ("12".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(12);
+		 }else if ("13".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(13);
+		 }else if ("14".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(14);
+		 }else if ("15".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(15);
+		 }else if ("16".equals(e.getActionCommand())) {
+			 game1panel = new GamePanel(16);
 		 }
 			containerPanel.add(game1panel, "2");
 			cardLayout.show(containerPanel, "2");
