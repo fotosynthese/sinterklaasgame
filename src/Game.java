@@ -77,6 +77,8 @@ public class Game implements ActionListener {
 		level15 = maakButton(level15, "15");
 		level16 = maakButton(level16, "16");
 		menuPanel.setLayout(new GridLayout(4, 4, 20, 20));
+		menuPanel.setSize(new Dimension(200, 200));
+		menuPanel.setPreferredSize(new Dimension(400, 40));
 		menuPanel.add(level1);
 		menuPanel.add(level2);
 		menuPanel.add(level3);
