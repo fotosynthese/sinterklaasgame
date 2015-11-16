@@ -245,7 +245,6 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				int a = n.getRcolor();
 				int b = n.getGcolor();
 				int c = n.getBcolor();
-				Color myRandomGreen = new Color(a,b,c);
 				if (n.isWater){
 					Color myRandomBlue = new Color(a,b,c+190);
 					g.setColor(myRandomBlue);
@@ -255,6 +254,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 					g.setColor(myRandomModder);
 					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());		
 				} else {
+					Color myRandomGreen = new Color(a,b,c);
 					g.setColor(myRandomGreen);
 					g.fillRect(i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y, Grid.getGridsizepixels(), Grid.getGridsizepixels());
 				}
@@ -296,7 +296,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		if (heeftGewonnen()){
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
 			//cardLayout.show(containerPanel, "1");
-			Game.goToMenu();
+			Game.goToEndScreen();
 		}
 	}	
 }
