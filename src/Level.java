@@ -8,11 +8,19 @@ public class Level {
 	ArrayList<Integer> huisCoordY = new ArrayList();
 	ArrayList<Integer> pakHuisCoordX = new ArrayList();
 	ArrayList<Integer> pakHuisCoordY = new ArrayList();
+	
+	ArrayList<Integer> poolSteenCoordX = new ArrayList();
+	ArrayList<Integer> poolSteenCoordY = new ArrayList();
 
 	ArrayList<Integer> waterCoordX = new ArrayList();
 	ArrayList<Integer> waterCoordY = new ArrayList();
 	ArrayList<Integer> modderCoordX = new ArrayList();
 	ArrayList<Integer> modderCoordY = new ArrayList();
+	
+	ArrayList<Integer> noordPoolX = new ArrayList();
+	ArrayList<Integer> noordPoolY = new ArrayList();
+	ArrayList<Integer> zuidPoolX = new ArrayList();
+	ArrayList<Integer> zuidPoolY = new ArrayList();
 	
 	public ArrayList<Integer> getPakHuisCoordY() {
 		return pakHuisCoordY;
@@ -93,6 +101,54 @@ public class Level {
 	public void setPakHuisInArray(int x, int y){
 		pakHuisCoordX.add(x);
 		pakHuisCoordY.add(y);
+	}
+	public void setPoolSteenInArray(int x, int y){
+		poolSteenCoordX.add(x);
+		poolSteenCoordY.add(y);
+	}
+	public void setNoordPoolInArray(int x, int y){
+		noordPoolX.add(x);
+		noordPoolY.add(y);
+	}
+	public void setZuidPoolInArray(int x, int y){
+		zuidPoolX.add(x);
+		zuidPoolY.add(y);
+	}
+	public ArrayList<Integer> getPoolSteenCoordX() {
+		return poolSteenCoordX;
+	}
+	public ArrayList<Integer> getNoordPoolX() {
+		return noordPoolX;
+	}
+	public void setNoordPoolX(ArrayList<Integer> noordPoolX) {
+		this.noordPoolX = noordPoolX;
+	}
+	public ArrayList<Integer> getNoordPoolY() {
+		return noordPoolY;
+	}
+	public void setNoordPoolY(ArrayList<Integer> noordPoolY) {
+		this.noordPoolY = noordPoolY;
+	}
+	public ArrayList<Integer> getZuidPoolX() {
+		return zuidPoolX;
+	}
+	public void setZuidPoolX(ArrayList<Integer> zuidPoolX) {
+		this.zuidPoolX = zuidPoolX;
+	}
+	public ArrayList<Integer> getZuidPoolY() {
+		return zuidPoolY;
+	}
+	public void setZuidPoolY(ArrayList<Integer> zuidPoolY) {
+		this.zuidPoolY = zuidPoolY;
+	}
+	public void setPoolSteenCoordX(ArrayList<Integer> poolSteenCoordX) {
+		this.poolSteenCoordX = poolSteenCoordX;
+	}
+	public ArrayList<Integer> getPoolSteenCoordY() {
+		return poolSteenCoordY;
+	}
+	public void setPoolSteenCoordY(ArrayList<Integer> poolSteenCoordY) {
+		this.poolSteenCoordY = poolSteenCoordY;
 	}
 	public ArrayList<Integer> getPakHuisCoordX() {
 		return pakHuisCoordX;

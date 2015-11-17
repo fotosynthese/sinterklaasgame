@@ -138,7 +138,7 @@ public class Game implements ActionListener {
 //		level14 = maakButton(level14, "14");
 //		level15 = maakButton(level15, "15");
 //		level16 = maakButton(level16, "16");
-		menuPanel.setLayout(new GridLayout(4, 4, 20, 20));
+		menuPanel.setLayout(new GridLayout(4, 4, 30, 30));
 //		blablabla.setSize(new Dimension(200, 200));
 //		blablabla.setPreferredSize(new Dimension(400, 40));
 		menuPanel.add(level1);
@@ -210,16 +210,24 @@ public class Game implements ActionListener {
 			level10.setRecordStappen(stappen);
 			break;
 		case 11: 
-			level11.setBehaaldeSterren(stappen);
+			level11.setBehaaldeSterren(a);
+			level11.setRecordStappen(stappen);
 			break;
 		case 12: 
-			level12.setBehaaldeSterren(stappen);
+			level12.setBehaaldeSterren(a);
+			level12.setRecordStappen(stappen);
 			break;
 		case 13: 
-			level13.setBehaaldeSterren(stappen);
+			level13.setBehaaldeSterren(a);
+			level13.setRecordStappen(stappen);
 			break;
 		case 14: 
-			level14.setBehaaldeSterren(stappen);
+			level14.setBehaaldeSterren(a);
+			level14.setRecordStappen(stappen);
+			break;
+		case 15: 
+			level15.setBehaaldeSterren(a);
+			level15.setRecordStappen(stappen);
 			break;
 		}
 

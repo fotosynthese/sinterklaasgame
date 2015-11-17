@@ -8,6 +8,10 @@ public class Tile {
 	boolean  Wortel = false;
 	boolean isModder = false;
 	private int xCoord, yCoord;
+	boolean noordPool = true; // als een tegel mee doet aan de PoolSteen, moet deze of de zuid op false gezet worden.
+	boolean zuidPool = true;
+	boolean heeftPoolsteen = false;
+	static int statusPoolsteen = 0; //0= NoordPool aan, 1= ZuidPool aan
 	
 	public Tile(){
 		rcolor = (int) (Math.random()*20 + 40);
