@@ -43,17 +43,21 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	int coordX, coordY;
 	BufferedImage sinterklaasImg;
 	BufferedImage huisImg;
+	BufferedImage pakHuisImg;
 	BufferedImage huisEmptyImg;
 	Level level1 = new Level();
 	ListOfLevels lijstvanlevels;
 	int welkLevel;
+	int drieSterrenScore;
+	boolean sintHeeftCadeaus;
 
 	public GamePanel(int level){
 		cadeautjesTotaalGebracht = 0;
 		lijstvanlevels = new ListOfLevels();
 		level1 = lijstvanlevels.levels.get(level-1);
 		welkLevel = level;
-
+		sintHeeftCadeaus = level1.sintHeeftCadeaus;
+		drieSterrenScore = level1.getScoreVoorDrieSterren();
 		grid = new Grid(level1.getGridx(), level1.getGridy());
 		
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
@@ -75,6 +79,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			int tileInArray = grid.getGridTile(level1.getModderCoordX().get(i), level1.getModderCoordY().get(i));
 			Tile t = grid.grid.get(tileInArray);
 			t.isModder = true;
+			grid.grid.set(tileInArray, t);			
+		}
+		for(int i = 0; i < level1.getPakHuisCoordX().size(); i++){
+			int tileInArray = grid.getGridTile(level1.getPakHuisCoordX().get(i), level1.getPakHuisCoordY().get(i));
+			Tile t = grid.grid.get(tileInArray);
+			t.heeftPakHuis = true;
 			grid.grid.set(tileInArray, t);			
 		}
 		paard = new Paard(level1.getSintx(), level1.getSinty());
@@ -125,7 +135,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		}
 		return false;
 	}
-
+	//checkt als het Sint Cadeaus bij zich heeft!
+	public boolean sintHeeftCadeau(){
+		if (sintHeeftCadeaus){
+			return true;
+		}
+		return false;
+	}
+	
 	//checkt als je gewonnen hebt.
 	public boolean heeftGewonnen(){
 		if (cadeautjesTotaalGebracht >= level1.getTeBehalenPunten()){
@@ -147,8 +164,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			if (tileIsModder()){
 				Paard.add1BijAantalKeerBewogen();
 			}
+			if (tileIsPakHuis()){
+				sintHeeftCadeaus = true;
+			}
 			Paard.add1BijAantalKeerBewogen();
-			if (isHuisDatCadeauWil()){
+			if (isHuisDatCadeauWil() && sintHeeftCadeau()){
 				Tile t = grid.grid.get(grid.getGridTile(coordX, coordY));
 				t.wilCadeau = false;
 				grid.grid.set(grid.getGridTile(coordX, coordY), t);
@@ -160,6 +180,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	private boolean tileIsModder() {
 		Tile t = grid.grid.get(grid.getGridTile(coordX, coordY));
 		if (t.isModder){
+			return true;
+		}
+		return false;
+	}
+	private boolean tileIsPakHuis() {
+		Tile t = grid.grid.get(grid.getGridTile(coordX, coordY));
+		if (t.heeftPakHuis){
 			return true;
 		}
 		return false;
@@ -208,6 +235,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint2.png"));
 			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis1.png"));
 			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis2.png"));
+			pakHuisImg = ImageIO.read(getClass().getResourceAsStream("/cadeauPakHuis.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -269,7 +297,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 					} else {
 						g.drawImage(huisEmptyImg, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisEmptyImg.getHeight()+Grid.getGridsizepixels(), null);
 					}
+				} else if (n.heeftPakHuis){
+					g.drawImage(pakHuisImg, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
 				}
+					
+					
 			}	
 		}
 		//Draw Rect at clicked Tile
@@ -298,7 +330,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		if (heeftGewonnen()){
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
 			//cardLayout.show(containerPanel, "1");
-			Game.goToEndScreen(Paard.getAantalKeerBewogen(), welkLevel);
+			Game.goToEndScreen(drieSterrenScore, Paard.getAantalKeerBewogen(), welkLevel);
+//			int a = ;
+			Paard.setTotaalKeerBewogen(Paard.getTotaalKeerBewogen() + Paard.getAantalKeerBewogen());
+			Paard.setAantalKeerBewogen(0);
 		}
 	}	
 }

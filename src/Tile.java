@@ -2,6 +2,7 @@
 public class Tile {
 	private int rcolor, gcolor, bcolor;
 	boolean heeftHuis = false;
+	boolean heeftPakHuis = false;
 	boolean wilCadeau = false;
 	boolean isWater = false;
 	boolean  Wortel = false;
@@ -12,15 +13,6 @@ public class Tile {
 		rcolor = (int) (Math.random()*20 + 40);
 		gcolor = (int) (Math.random()*20 + 180);
 		bcolor = (int) (Math.random()*20 + 40);
-//		int a = (int) (Math.random()*10);
-//		if (a < 0){
-//			if (!heeftHuis){
-//				isWater = true;
-//			}
-			//isWater = true;
-			//heeftHuis = true;
-			//wilCadeau = true;
-//		}
 	}
 	public Tile(int x, int y){
 		this();

@@ -1,14 +1,25 @@
 import java.util.ArrayList;
 
 public class Level {
+	private int scoreVoorDrieSterren;
 	private int gridx, gridy;
+	boolean sintHeeftCadeaus = true;
 	ArrayList<Integer> huisCoordX = new ArrayList();
 	ArrayList<Integer> huisCoordY = new ArrayList();
+	ArrayList<Integer> pakHuisCoordX = new ArrayList();
+	ArrayList<Integer> pakHuisCoordY = new ArrayList();
+
 	ArrayList<Integer> waterCoordX = new ArrayList();
 	ArrayList<Integer> waterCoordY = new ArrayList();
 	ArrayList<Integer> modderCoordX = new ArrayList();
 	ArrayList<Integer> modderCoordY = new ArrayList();
 	
+	public ArrayList<Integer> getPakHuisCoordY() {
+		return pakHuisCoordY;
+	}
+	public void setPakHuisCoordY(ArrayList<Integer> pakHuisCoordY) {
+		this.pakHuisCoordY = pakHuisCoordY;
+	}	
 	public ArrayList<Integer> getModderCoordY() {
 		return modderCoordY;
 	}
@@ -18,6 +29,12 @@ public class Level {
 	private int sintx, sinty;
 	private int teBehalenPunten;
 	
+	public int getScoreVoorDrieSterren() {
+		return scoreVoorDrieSterren;
+	}
+	public void setScoreVoorDrieSterren(int scoreVoorDrieSterren) {
+		this.scoreVoorDrieSterren = scoreVoorDrieSterren;
+	}
 	public ArrayList<Integer> getWaterX() {
 		return waterCoordX;
 	}
@@ -72,7 +89,17 @@ public class Level {
 	public void setModderInArray(int x, int y){
 		modderCoordX.add(x);
 		modderCoordY.add(y);
-	}	
+	}
+	public void setPakHuisInArray(int x, int y){
+		pakHuisCoordX.add(x);
+		pakHuisCoordY.add(y);
+	}
+	public ArrayList<Integer> getPakHuisCoordX() {
+		return pakHuisCoordX;
+	}
+	public void setPakHuisCoordX(ArrayList<Integer> pakHuisCoordX) {
+		this.pakHuisCoordX = pakHuisCoordX;
+	}
 	public int getSintx() {
 		return sintx;
 	}

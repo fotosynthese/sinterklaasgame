@@ -57,7 +57,7 @@ public class MenuPanel extends JPanel{
 		coordY = mouseYinGrid / 50;
 	}
 	public void paintComponent(Graphics g){
-		g.setColor(Color.YELLOW);
+		g.setColor(new Color(210,30,30));
 		g.fillRect(0,0, Game.playfieldx, Game.playfieldy);
 		
 		g.setColor(Color.BLACK);

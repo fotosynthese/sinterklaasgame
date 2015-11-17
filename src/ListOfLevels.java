@@ -19,6 +19,7 @@ public ListOfLevels(){
 			level1.setHuisInArray(3,3);
 			level1.setHuisInArray(6,6);
 			level1.setTeBehalenPunten(6);
+			level1.setScoreVoorDrieSterren(13);
 			level1.setWaterInArray(1, 1);
 			level1.setWaterInArray(1, 2);
 			level1.setWaterInArray(2, 1);
@@ -103,6 +104,7 @@ public ListOfLevels(){
 			level1.setSinty(0);
 			level1.setHuisInArray(1,1);
 			level1.setTeBehalenPunten(1);
+			level1.setScoreVoorDrieSterren(4);
 			level1.setWaterInArray(0, 3);
 			level1.setWaterInArray(1, 2);
 			level1.setWaterInArray(2, 2);
@@ -110,6 +112,18 @@ public ListOfLevels(){
 			level1.setWaterInArray(3, 3);
 			
 			levels.add(level1);
-		
+			level1 = new Level();
+			//Level 5
+			level1.sintHeeftCadeaus = false;
+			level1.setGridx(4);
+			level1.setGridy(4);
+			level1.setSintx(0);
+			level1.setSinty(0);
+			level1.setPakHuisInArray(3, 3);
+			level1.setHuisInArray(1,2);
+			level1.setTeBehalenPunten(1);
+			level1.setScoreVoorDrieSterren(1);
+			
+			levels.add(level1);
 	}
 }

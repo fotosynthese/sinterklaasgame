@@ -80,7 +80,7 @@ public class Game implements ActionListener {
 		backToMainMenu.addActionListener(this);
 		endScreenPanel.add(backToMainMenu);
 		
-		menuFrame.add(levelSelectPanel, BorderLayout.SOUTH);
+		//menuFrame.add(levelSelectPanel, BorderLayout.SOUTH);
 		
 		menuPanel.add(levelSelectPanel, BorderLayout.SOUTH);
 		//menuPanel.add(blablabla);
@@ -165,39 +165,78 @@ public class Game implements ActionListener {
 	static void goToMenu(){
 		cardLayout.show(containerPanel, "1");
 	}
-	static void goToEndScreen(int stappen, int level){
+	static void goToEndScreen(int sterren, int stappen, int level){
+		int a = 0;
+		a = berekenAantalBehaaldeSterren(sterren, stappen);
 		switch(level){
 		case 1: 
-			level1.setBehaaldeSterren(stappen);
+			level1.setBehaaldeSterren(a);
+			level1.setRecordStappen(stappen);
 			break;
 		case 2: 
-			level2.setBehaaldeSterren(stappen);
+			level2.setBehaaldeSterren(a);
+			level2.setRecordStappen(stappen);
 			break;
 		case 3: 
-			level3.setBehaaldeSterren(stappen);
+			level3.setBehaaldeSterren(a);
+			level3.setRecordStappen(stappen);
 			break;
 		case 4: 
-			level4.setBehaaldeSterren(stappen);
+			level4.setBehaaldeSterren(a);
+			level4.setRecordStappen(stappen);
 			break;
 		case 5: 
-			level5.setBehaaldeSterren(stappen);
+			level5.setBehaaldeSterren(a);
+			level5.setRecordStappen(stappen);
 			break;
-		case 6: 
-			level6.setBehaaldeSterren(stappen);
+		case 6:
+			level6.setBehaaldeSterren(a);
+			level6.setRecordStappen(stappen);
 			break;
 		case 7: 
-			level7.setBehaaldeSterren(stappen);
+			level7.setBehaaldeSterren(a);
+			level7.setRecordStappen(stappen);
 			break;
 		case 8: 
-			level8.setBehaaldeSterren(stappen);
+			level8.setBehaaldeSterren(a);
+			level8.setRecordStappen(stappen);
 			break;
 		case 9: 
-			level9.setBehaaldeSterren(stappen);
+			level9.setBehaaldeSterren(a);
+			level9.setRecordStappen(stappen);
+			break;
+		case 10: 
+			level10.setBehaaldeSterren(a);
+			level10.setRecordStappen(stappen);
+			break;
+		case 11: 
+			level11.setBehaaldeSterren(stappen);
+			break;
+		case 12: 
+			level12.setBehaaldeSterren(stappen);
+			break;
+		case 13: 
+			level13.setBehaaldeSterren(stappen);
+			break;
+		case 14: 
+			level14.setBehaaldeSterren(stappen);
 			break;
 		}
+
+		levelSelectPanel.setPaardStappen(Paard.getTotaalKeerBewogen());
 		cardLayout.show(containerPanel, "3");
 	}
 	
+	private static int berekenAantalBehaaldeSterren(int maxSterrenVoorDrie, int stappen) {
+		if (stappen <= maxSterrenVoorDrie){
+			return 3;
+		} else if (stappen <= (maxSterrenVoorDrie+5)){
+			return 2;
+		} else {
+			return 1;
+		}	
+	}
+
 	public JButton maakButton(JButton a, String i){
 		a = new JButton(i);
 		a.setActionCommand(i);

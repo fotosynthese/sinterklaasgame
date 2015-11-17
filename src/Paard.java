@@ -4,6 +4,7 @@ public class Paard {
 	private int y_positie;
 	private int x_img, y_img;
 	private static int aantalKeerBewogen = 0;
+	private static int totaalKeerBewogen = 0;
 	
 	public Paard(){
 		x_positie = 0;
@@ -102,6 +103,12 @@ public class Paard {
 	}
 	public void setY_img(int y_img) {
 		this.y_img = y_img;
+	}
+	public static int getTotaalKeerBewogen() {
+		return totaalKeerBewogen;
+	}
+	public static void setTotaalKeerBewogen(int totaalKeerBewogen) {
+		Paard.totaalKeerBewogen = totaalKeerBewogen;
 	}
 	
 }
