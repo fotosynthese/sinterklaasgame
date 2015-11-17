@@ -46,11 +46,13 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	BufferedImage huisEmptyImg;
 	Level level1 = new Level();
 	ListOfLevels lijstvanlevels;
+	int welkLevel;
 
 	public GamePanel(int level){
 		cadeautjesTotaalGebracht = 0;
 		lijstvanlevels = new ListOfLevels();
 		level1 = lijstvanlevels.levels.get(level-1);
+		welkLevel = level;
 
 		grid = new Grid(level1.getGridx(), level1.getGridy());
 		
@@ -296,7 +298,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		if (heeftGewonnen()){
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
 			//cardLayout.show(containerPanel, "1");
-			Game.goToEndScreen();
+			Game.goToEndScreen(Paard.getAantalKeerBewogen(), welkLevel);
 		}
 	}	
 }

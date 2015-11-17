@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game implements ActionListener {
+	Player speler1 = new Player();
 	static Scanner scanner = new Scanner(System.in);
 	static int playfieldx = 800;
 	static int playfieldy = 600;
@@ -31,23 +32,23 @@ public class Game implements ActionListener {
 	JFrame frame;
 	JFrame menuFrame;
 	JLabel titelGameLabel;
-	ButtonPanel level1;
-	ButtonPanel level2;
-	ButtonPanel level3;
-	ButtonPanel level4;
-	ButtonPanel level5;
-	ButtonPanel level6;
-	ButtonPanel level7;
-	ButtonPanel level8;
-	ButtonPanel level9;
-	ButtonPanel level10;
-	ButtonPanel level11;
-	ButtonPanel level12;
-	ButtonPanel level13;
-	ButtonPanel level14;
-	ButtonPanel level15;
-	ButtonPanel level16;
-	ButtonPanel test1;
+	static ButtonPanel level1;
+	static ButtonPanel level2;
+	static ButtonPanel level3;
+	static ButtonPanel level4;
+	static ButtonPanel level5;
+	static ButtonPanel level6;
+	static ButtonPanel level7;
+	static ButtonPanel level8;
+	static ButtonPanel level9;
+	static ButtonPanel level10;
+	static ButtonPanel level11;
+	static ButtonPanel level12;
+	static ButtonPanel level13;
+	static ButtonPanel level14;
+	static ButtonPanel level15;
+	static ButtonPanel level16;
+	static ButtonPanel test1;
 	JButton backToMainMenu = new JButton("BAJKCK!");
 	Grid grid;
 	Paard paard;
@@ -88,7 +89,9 @@ public class Game implements ActionListener {
 		cardLayout.show(containerPanel, "1");
 		
 		level1 = new ButtonPanel("1");
+		//level1.setBehaaldeSterren(2);
 		level1.startButton.addActionListener(this);
+		
 		level2 = new ButtonPanel("2");
 		level2.startButton.addActionListener(this);
 		level3 = new ButtonPanel("3");
@@ -162,9 +165,37 @@ public class Game implements ActionListener {
 	static void goToMenu(){
 		cardLayout.show(containerPanel, "1");
 	}
-	static void goToEndScreen(){
+	static void goToEndScreen(int stappen, int level){
+		switch(level){
+		case 1: 
+			level1.setBehaaldeSterren(stappen);
+			break;
+		case 2: 
+			level2.setBehaaldeSterren(stappen);
+			break;
+		case 3: 
+			level3.setBehaaldeSterren(stappen);
+			break;
+		case 4: 
+			level4.setBehaaldeSterren(stappen);
+			break;
+		case 5: 
+			level5.setBehaaldeSterren(stappen);
+			break;
+		case 6: 
+			level6.setBehaaldeSterren(stappen);
+			break;
+		case 7: 
+			level7.setBehaaldeSterren(stappen);
+			break;
+		case 8: 
+			level8.setBehaaldeSterren(stappen);
+			break;
+		case 9: 
+			level9.setBehaaldeSterren(stappen);
+			break;
+		}
 		cardLayout.show(containerPanel, "3");
-		
 	}
 	
 	public JButton maakButton(JButton a, String i){
