@@ -5,13 +5,25 @@ public class Grid {
 	ArrayList<Tile> grid = new ArrayList<Tile>();
 	private int grid_x;
 	private int grid_y;
+	private static int gridSizePixels = 60;
 	
 	public Grid(){
 		grid_x = 10;
 		grid_y = 10;
 		for(int i = 0; i < grid_x; i++){
 			for(int j = 0; j < grid_y; j++){
-				Tile tile = new Tile();
+				Tile tile = new Tile(i, j);
+				grid.add(tile);
+			}
+		}
+	}
+	public Grid(int x, int y){
+		//this();
+		grid_x = x;
+		grid_y = y;
+		for(int i = 0; i < grid_x; i++){
+			for(int j = 0; j < grid_y; j++){
+				Tile tile = new Tile(i, j);
 				grid.add(tile);
 			}
 		}
@@ -28,11 +40,24 @@ public class Grid {
 	public int getGrid_y() {
 		return grid_y;
 	}
+	public int getGridTile(int x, int y){
+		int uitkomst = y + x*getGrid_y();
+		uitkomst = x*grid_y + y;
+		
+		
+		return uitkomst;
+	}
 
 	public void setGrid_y(int grid_y) {
 		this.grid_y = grid_y;
 	}
 	
+	public static int getGridsizepixels() {
+		return gridSizePixels;
+	}
+	public static void setGridsizepixels(int gridsizepixels) {
+		Grid.gridSizePixels = gridsizepixels;
+	}
 	public String toString(){
 		int size = grid.size();
 		return Integer.toString(size);

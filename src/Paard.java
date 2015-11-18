@@ -2,13 +2,17 @@
 public class Paard {
 	private int x_positie;
 	private int y_positie;
+	private int x_img, y_img;
 	private static int aantalKeerBewogen = 0;
 	
 	public Paard(){
-		x_positie = 2;
-		y_positie = 2;
+		x_positie = 0;
+		y_positie = 0;
 	}
-	
+	public Paard(int x, int y){
+		x_positie = x;
+		y_positie = y;
+	}	
 	public void move(int a){
 		switch(a){
 		case 1:
@@ -86,6 +90,18 @@ public class Paard {
 	}
 	public static void add1BijAantalKeerBewogen(){
 		aantalKeerBewogen += 1;
+	}
+	public int getX_img() {
+		return x_img;
+	}
+	public void setX_img(int x_img) {
+		this.x_img = x_img;
+	}
+	public int getY_img() {
+		return y_img;
+	}
+	public void setY_img(int y_img) {
+		this.y_img = y_img;
 	}
 	
 }
