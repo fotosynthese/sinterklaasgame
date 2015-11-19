@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 public class Game implements ActionListener {
 	Player speler1 = new Player();
 	static Scanner scanner = new Scanner(System.in);
-	static int playfieldx = 800;
-	static int playfieldy = 600;
+	static int playfieldx = 1600;
+	static int playfieldy = 900;
 	static BoardPanel boardPanel;
 	static MenuPanel menuPanel;
 	static LevelSelectPanel endScreenPanel;
@@ -232,7 +232,7 @@ public class Game implements ActionListener {
 		}
 
 		levelSelectPanel.setPaardStappen(Paard.getTotaalKeerBewogen());
-		cardLayout.show(containerPanel, "3");
+		cardLayout.show(containerPanel, "1");
 	}
 	
 	private static int berekenAantalBehaaldeSterren(int maxSterrenVoorDrie, int stappen) {

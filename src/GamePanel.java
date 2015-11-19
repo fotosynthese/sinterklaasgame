@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,10 +21,11 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
 	static Scanner scanner = new Scanner(System.in);
-	static int playfieldx = 800;
-	static int playfieldy = 600;
+//	static int playfieldx = 800;
+//	static int playfieldy = 600;
 	static int mousexLastClick = 0;
 	static int mouseyLastClick = 0;
+	boolean heeftGewonnen = false;
 	static BoardPanel boardPanel;
 	static boolean valideJump = false;
 	static MenuPanel menuPanel;
@@ -32,9 +34,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	private CardLayout cardLayout = new CardLayout();
 	JFrame frame;
 	JButton start;
+	Grid gridAchtergrond;
 	Grid grid;
 	Paard paard;
 	ArrayList<Tile> gridClone;
+	ArrayList<Tile> gridAchtergrondClone;
 	int aXPaard, bYPaard;
 	//coord van Grid
 	int gridx, gridy;
@@ -66,6 +70,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		sintHeeftCadeaus = level1.sintHeeftCadeaus;
 		drieSterrenScore = level1.getScoreVoorDrieSterren();
 		grid = new Grid(level1.getGridx(), level1.getGridy());
+		gridAchtergrond = new Grid(20, 11);
 		
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
 			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
@@ -156,6 +161,17 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		}
 		return false;
 	}
+	//checkt als het paard zijn nieuwe positie in het grid valt en als het geen water is.
+	public boolean MouseInGrid() {
+		//checkt als paard zijn nieuwe positie in het grid valt op de X
+		if (coordX >= 0 && coordX < grid.getGrid_x()){
+			//checkt als paard zijn nieuwe positie in het grid valt op de Y
+			if (coordY >= 0 && coordY < grid.getGrid_y()){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	//checkt als het Huis waarop je komt een cadeau wil.
 	public boolean isHuisDatCadeauWil(){
@@ -240,6 +256,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				cadeautjesTotaalGebracht += 1;
 			}
 		}
+		if (heeftGewonnen){
+			Game.goToEndScreen(drieSterrenScore, Paard.getAantalKeerBewogen(), welkLevel);
+	//		int a = ;
+			Paard.setTotaalKeerBewogen(Paard.getTotaalKeerBewogen() + Paard.getAantalKeerBewogen());
+			Paard.setAantalKeerBewogen(0);
+		}
 		repaint();
 	}
 	@Override
@@ -315,6 +337,22 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0, Game.playfieldx, Game.playfieldy);
 		//Bord
+		int marge_x_naarRechts = (marge_x/Grid.getGridsizepixels()+1)*Grid.getGridsizepixels();
+		int marge_y_naarBoppe = (marge_y/Grid.getGridsizepixels()+1)*Grid.getGridsizepixels();
+		for (int i = 0; i < 20; i++){
+			for (int j = 0; j < 11; j++){
+				Tile n = (gridAchtergrond.grid.get(i*10 + j));
+				int a = n.getRcolor();
+				int b = n.getGcolor();
+				int c = n.getBcolor();
+				Color myRandomAchtergrondKleur = new Color(a+80,b-170,c-30);
+				Color myRandomAchtergrondKleur2 = new Color(a-40,b-160,c+50);
+				g.setColor(myRandomAchtergrondKleur2);
+				g.fillRect(i*Grid.getGridsizepixels() + marge_x - marge_x_naarRechts,j*Grid.getGridsizepixels() + marge_y - marge_y_naarBoppe, Grid.getGridsizepixels(), Grid.getGridsizepixels());	
+			}
+		}
+		
+		
 		for (int i = 0; i < gridx; i++){
 			for (int j = 0; j < gridy; j++){
 				Tile n = (gridClone.get(i*gridy + j));
@@ -371,18 +409,20 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			}	
 		}
 		//Draw Rect at clicked Tile
-		if (valideJump){
-			g.setColor(Color.GREEN);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
-		} else {
-			g.setColor(Color.ORANGE);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
-			g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+		if (MouseInGrid()){
+			if (valideJump){
+				g.setColor(Color.GREEN);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+			} else {
+				g.setColor(Color.ORANGE);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, Grid.getGridsizepixels()+10, 10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x + Grid.getGridsizepixels()-5,coordY*Grid.getGridsizepixels() + marge_y - 5, 10, Grid.getGridsizepixels()+10);
+				g.fillRect(coordX*Grid.getGridsizepixels() + marge_x - 5,coordY*Grid.getGridsizepixels() + marge_y +Grid.getGridsizepixels()-5, Grid.getGridsizepixels()+10, 10);
+			}
 		}
 		//Draw Rect at mousePositionClick
 //		g.setColor(Color.YELLOW);
@@ -390,16 +430,21 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		//Paard
 		//g.drawImage(sinterklaasImg, aXPaard*Grid.getGridsizepixels() + marge_x + ((Grid.getGridsizepixels() -sinterklaasImg.getWidth())/2), bYPaard*Grid.getGridsizepixels() + marge_y - sinterklaasImg.getHeight()+Grid.getGridsizepixels(), null);
 		g.drawImage(sinterklaasImg, aXPaard*Grid.getGridsizepixels() + marge_x + ((Grid.getGridsizepixels() -sinterklaasImg.getWidth())/2), bYPaard*Grid.getGridsizepixels() + marge_y - sinterklaasImg.getHeight()+Grid.getGridsizepixels(), null);
-		g.setColor(Color.black);
-		g.drawString("Totaal aantal kinderen blij gemaakt: " + cadeautjesTotaalGebracht, Game.playfieldx/2 - 70, 20);
-		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, 40);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Helvetica", Font.PLAIN, 20)); 
+		g.drawString("Totaal aantal kinderen blij gemaakt: " + cadeautjesTotaalGebracht, Game.playfieldx/2 - 160, 60);
+		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 105, 80);
 		if (heeftGewonnen()){
+			g.setColor(Color.YELLOW);
+			g.fillRect(Game.playfieldx/2 - 300, Game.playfieldy/2 -150, 600, 300);
+			g.setColor(Color.black);
 			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
+			g.drawString("Stapfen gezet: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, Game.playfieldy/2+30);
+			g.drawString("Sint: \"clic en cualquier lugar para continuar\", oftewel \"klik waar dan ook om verder te gaan\"", Game.playfieldx/2 - 250, Game.playfieldy/2+80);
+			
+			heeftGewonnen = true;
 			//cardLayout.show(containerPanel, "1");
-			Game.goToEndScreen(drieSterrenScore, Paard.getAantalKeerBewogen(), welkLevel);
-//			int a = ;
-			Paard.setTotaalKeerBewogen(Paard.getTotaalKeerBewogen() + Paard.getAantalKeerBewogen());
-			Paard.setAantalKeerBewogen(0);
+
 		}
 	}	
 }

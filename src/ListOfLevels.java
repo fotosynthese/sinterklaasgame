@@ -134,14 +134,14 @@ public ListOfLevels(){
 			level1.setGridy(4);
 			level1.setSintx(0);
 			level1.setSinty(0);
-			//Grid.setGridsizepixels(90);
+			//Grid.setGridsizepixels(180);
 			level1.setHuisInArray(1,2);
 			level1.setTeBehalenPunten(1);
 			level1.setScoreVoorDrieSterren(1);
 			
 			levels.add(level1);
 			level1 = new Level();
-			//Level 7
+			//Level 8
 			
 			level1.setGridx(11);
 			level1.setGridy(7);
@@ -196,5 +196,38 @@ public ListOfLevels(){
 			Tile.statusPoolsteen = 0;
 			
 			levels.add(level1);
+			
+			level1 = new Level();
+			//Level 9
+			level1.setGridx(5);
+			level1.setGridy(5);
+			level1.setSintx(0);
+			level1.setSinty(4);
+			level1.setHuisInArray(0,0);
+			level1.setHuisInArray(1,1);
+			level1.setHuisInArray(2,2);
+			level1.setHuisInArray(3,3);
+			level1.setHuisInArray(4,4);
+			level1.setWaterInArray(4, 0);
+			level1.setWaterInArray(3, 1);
+			level1.setWaterInArray(1, 3);
+			level1.setModderInArray(2, 3);
+			level1.setModderInArray(3, 2);
+			level1.setModderInArray(1, 2);
+			level1.setModderInArray(2, 1);
+			level1.setTeBehalenPunten(5);
+			level1.setScoreVoorDrieSterren(13);
+			
+			levels.add(level1);
+			level1 = new Level();
+			//Level 9
+			level1.setGridx(5);
+			level1.setGridy(5);
+			level1.setSintx(0);
+			level1.setSinty(4);
+			level1.setHuisInArray(2,2);
+			level1.setWaterInArray(1, 3);
+			level1.setTeBehalenPunten(5);
+			level1.setScoreVoorDrieSterren(13);
 	}
 }

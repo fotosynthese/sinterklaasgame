@@ -5,7 +5,7 @@ public class Grid {
 	ArrayList<Tile> grid = new ArrayList<Tile>();
 	private int grid_x;
 	private int grid_y;
-	private static int gridSizePixels = 60;
+	private static int gridSizePixels = 90;
 	
 	public Grid(){
 		grid_x = 10;
