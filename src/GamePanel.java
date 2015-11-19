@@ -299,9 +299,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		marge_x = (Game.playfieldx - b.getGrid_x()*Grid.getGridsizepixels())/2;
 		marge_y = (Game.playfieldy - b.getGrid_y()*Grid.getGridsizepixels())/2;
 		try {
-			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint2.png"));
-			huisImg = ImageIO.read(getClass().getResourceAsStream("/Huis1.png"));
-			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/Huis2.png"));
+			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint3_met.png"));
+			huisImg = ImageIO.read(getClass().getResourceAsStream("/huis3.png"));
+			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/huis3_cadeau.png"));
 			pakHuisImg = ImageIO.read(getClass().getResourceAsStream("/cadeauPakHuis.png"));
 			poolSteenImg = ImageIO.read(getClass().getResourceAsStream("/poolSteen.png"));
 		} catch (IOException e) {
