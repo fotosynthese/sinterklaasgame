@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class ButtonPanel extends JPanel {
 	JButton startButton;
@@ -30,14 +32,15 @@ public class ButtonPanel extends JPanel {
 	JLabel wortelLabel3;
 	
 	
-	public ButtonPanel(String level){
+	public ButtonPanel(String level, String naam){
 		try {
-			legeWortel = ImageIO.read(getClass().getResourceAsStream("/legeWortel.png"));
-			volleWortel = ImageIO.read(getClass().getResourceAsStream("/wortel.png"));
-			startButtonImg = ImageIO.read(getClass().getResourceAsStream("/startBtn.png"));
+			legeWortel = ImageIO.read(getClass().getResourceAsStream("/wortel3_leeg.png"));
+			volleWortel = ImageIO.read(getClass().getResourceAsStream("/wortel3_vol.png"));
+			startButtonImg = ImageIO.read(getClass().getResourceAsStream("/start4.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//setFont(new Font("Helvetica", Font.PLAIN, 20)); 
 		wortelLabel1 = new JLabel(new ImageIcon(legeWortel));
 		wortelLabel2 = new JLabel(new ImageIcon(legeWortel));
 		wortelLabel3 = new JLabel(new ImageIcon(legeWortel));
@@ -47,14 +50,16 @@ public class ButtonPanel extends JPanel {
 		size.width = 300;
 		size.height = 100;
 		setPreferredSize(size);
-		Color myRandomTurqoise = new Color(255, 255, 100);
+		Color myRandomTurqoise = new Color(255, 245, 225);
 		setBackground(myRandomTurqoise);  
-		setBorder(BorderFactory.createTitledBorder("Level " + level));
+		//setBorder(BorderFactory.createTitledBorder("Level " + level));
+		setBorder(BorderFactory.createTitledBorder(null, "Level " + level + ": " + naam, TitledBorder.CENTER, TitledBorder.TOP, new Font("Helvetica",Font.PLAIN,15), Color.black));
 		
 		levelLabel = new JLabel("Stappen: " +recordStappen);
 		sterrenLabel = new JLabel("Aantal sterren: " + behaaldeSterren);
 		
 		startButton = new JButton(new ImageIcon(startButtonImg));
+		//startButton.set
 		startButton.setMargin(new Insets(-3,-3,-3,-3));
 		//startButton.addActionListener();
 		startButton.setActionCommand(level);

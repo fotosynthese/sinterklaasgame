@@ -49,7 +49,10 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	BufferedImage huisImg;
 	BufferedImage pakHuisImg;
 	BufferedImage huisEmptyImg;
-	BufferedImage poolSteenImg;
+	BufferedImage poolSteenImg1;
+	BufferedImage poolSteenImg2;
+	BufferedImage endScreenImg;
+	BufferedImage randomGrassTexture;
 	Level level1 = new Level();
 	ListOfLevels lijstvanlevels;
 	int welkLevel;
@@ -71,15 +74,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		drieSterrenScore = level1.getScoreVoorDrieSterren();
 		grid = new Grid(level1.getGridx(), level1.getGridy());
 		gridAchtergrond = new Grid(20, 11);
-		
+
 		for(int i = 0; i < level1.getHuisCoordX().size(); i++){
 			int tileInArray = grid.getGridTile(level1.getHuisCoordX().get(i), level1.getHuisCoordY().get(i));
-			System.out.println(level1.getHuisCoordY().get(i) + " " +  level1.getHuisCoordX().get(i) + " "+ grid.getGrid_y());
-			System.out.println(tileInArray);
-			Tile t = grid.grid.get(tileInArray);
-			t.heeftHuis = true;
-			t.wilCadeau = true;
-			grid.grid.set(tileInArray, t);			
+			grid.grid.get(tileInArray).heeftHuis = true;
+			grid.grid.get(tileInArray).wilCadeau = true;
 		}
 		for(int i = 0; i < level1.getWaterX().size(); i++){
 			int tileInArray = grid.getGridTile(level1.getWaterX().get(i), level1.getWaterY().get(i));
@@ -302,8 +301,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 			sinterklaasImg = ImageIO.read(getClass().getResourceAsStream("/Sint3_met.png"));
 			huisImg = ImageIO.read(getClass().getResourceAsStream("/huis3.png"));
 			huisEmptyImg = ImageIO.read(getClass().getResourceAsStream("/huis3_cadeau.png"));
-			pakHuisImg = ImageIO.read(getClass().getResourceAsStream("/cadeauPakHuis.png"));
-			poolSteenImg = ImageIO.read(getClass().getResourceAsStream("/poolSteen.png"));
+			pakHuisImg = ImageIO.read(getClass().getResourceAsStream("/cadeau.png"));
+			poolSteenImg1 = ImageIO.read(getClass().getResourceAsStream("/hendel3_1.png"));
+			poolSteenImg2 = ImageIO.read(getClass().getResourceAsStream("/hendel3_2.png"));
+			endScreenImg = ImageIO.read(getClass().getResourceAsStream("/endscreen3.png"));
+			randomGrassTexture = ImageIO.read(getClass().getResourceAsStream("/gras_texture3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -402,7 +404,14 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				} else if (n.heeftPakHuis){
 					g.drawImage(pakHuisImg, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
 				} else if (n.heeftPoolsteen){
-					g.drawImage(poolSteenImg, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
+					if (Tile.statusPoolsteen == 1){
+						g.drawImage(poolSteenImg1, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
+					} else {
+						g.drawImage(poolSteenImg2, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
+					}
+				}
+				if (n.heeftGras){
+					g.drawImage(randomGrassTexture, i*Grid.getGridsizepixels() + marge_x,j*Grid.getGridsizepixels() + marge_y - huisImg.getHeight()+Grid.getGridsizepixels(), null);
 				}
 					
 					
@@ -435,12 +444,11 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		g.drawString("Totaal aantal kinderen blij gemaakt: " + cadeautjesTotaalGebracht, Game.playfieldx/2 - 160, 60);
 		g.drawString("Aantal keer bewogen: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 105, 80);
 		if (heeftGewonnen()){
-			g.setColor(Color.YELLOW);
-			g.fillRect(Game.playfieldx/2 - 300, Game.playfieldy/2 -150, 600, 300);
+			g.drawImage(endScreenImg, Game.playfieldx/2 - 300, Game.playfieldy/2 -150, null);
 			g.setColor(Color.black);
-			g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
-			g.drawString("Stapfen gezet: " + Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 40, Game.playfieldy/2+30);
-			g.drawString("Sint: \"clic en cualquier lugar para continuar\", oftewel \"klik waar dan ook om verder te gaan\"", Game.playfieldx/2 - 250, Game.playfieldy/2+80);
+			//g.drawString("DU HABST GEWUNNEN!", Game.playfieldx/2 - 40, Game.playfieldy/2);
+			g.drawString(""+Paard.getAantalKeerBewogen(), Game.playfieldx/2 - 10, Game.playfieldy/2+30);
+			//g.drawString("Sint: \"clic en cualquier lugar para continuar\", oftewel \"klik waar dan ook om verder te gaan\"", Game.playfieldx/2 - 250, Game.playfieldy/2+80);
 			
 			heeftGewonnen = true;
 			//cardLayout.show(containerPanel, "1");
